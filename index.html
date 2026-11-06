@@ -8,7 +8,12 @@
   :root { --ink:#0f1420; --card:#182034; --line:#2a3552; --text:#e8ecf4; --dim:#9aa7c2; --amber:#f2b24a; --green:#4ade80; --gray:#8b96ad; }
   * { box-sizing: border-box; }
   body { margin:0; background:var(--ink); color:var(--text); font-family: Georgia, 'Times New Roman', serif; }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 18px 60px; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 10px 18px 60px; }
+  .hero { background: linear-gradient(rgba(9,10,18,.34), rgba(9,10,18,.68)), url('hero.jpg') center 32% / cover no-repeat; border-bottom: 3px solid var(--amber); padding: 58px 18px 36px; }
+  .hero .inner { max-width: 860px; margin: 0 auto; }
+  .hero h1 { color: #fff6dd; text-shadow: 0 2px 16px rgba(0,0,0,.8); font-size: 2.35rem; }
+  .hero .sub { color: #f2e8cd; text-shadow: 0 1px 10px rgba(0,0,0,.85); max-width: 620px; }
+  .hero .updated { color: #ddd0a8; text-shadow: 0 1px 8px rgba(0,0,0,.85); }
   h1 { font-size: 2rem; margin: 0 0 6px; }
   h2 { font-size: 1.15rem; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin: 34px 0 12px; }
   .sub { color: var(--dim); font-size: 1.05rem; line-height: 1.5; margin: 0 0 4px; }
@@ -26,6 +31,12 @@
   ol.queue { margin:0; padding-left: 22px; color: var(--dim); line-height: 1.6; }
   ol.queue b { color: var(--text); }
   .road { color: var(--dim); line-height: 1.7; }
+  details.impl { border-top: 1px solid var(--line); padding: 10px 0 6px; }
+  details.impl:first-of-type { border-top: 0; }
+  details.impl summary { cursor: pointer; color: var(--dim); line-height: 1.55; }
+  details.impl summary b { color: var(--text); }
+  details.impl summary:hover b { color: var(--amber); }
+  details.impl p { margin: 8px 0 8px 16px; }
   label { display:block; font-family: Verdana, sans-serif; font-size:.8rem; color:var(--dim); margin: 12px 0 5px; }
   input, select, textarea { width:100%; background:#0d1120; border:1px solid var(--line); border-radius:8px; color:var(--text); padding:10px; font-size:1rem; font-family: inherit; }
   textarea { min-height: 110px; resize: vertical; }
@@ -39,10 +50,12 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="hero"><div class="inner">
   <h1>🏛️ Civ3 Project — Progress Board</h1>
   <p class="sub">Nick is teaching a 2001 strategy game new tricks: a long-running mod project for Civilization III, built with AI help in a sandboxed test lab.</p>
   <p class="updated">Last updated: Thursday, November 5, 2026, 11:15 PM CT — updated whenever something changes.</p>
+</div></div>
+<div class="wrap">
 
   <h2>Happening now</h2>
   <div class="card">
@@ -76,15 +89,13 @@
   <h2>The implementation list</h2>
   <div class="card">
     <p style="margin-bottom:8px">What actually gets built once the foundation (Stage 1) passes:</p>
-    <ol class="queue" style="list-style: disc;">
-      <li><b>The Nemesis ledger</b> — the game writes down every betrayal, sneak attack, and razed city, and AI rivals hold real grudges.</li>
-      <li><b>Vassalage</b> — beaten rivals can bend the knee and serve a stronger power instead of fighting to the last city. Built on top of the ledger.</li>
-      <li><b>Loyalty</b> — cities and vassals keep a loyalty score, with the ledger as its memory, so empires can crack from the inside.</li>
-      <li><b>Smarter AI opponents</b> — better war-making, diplomacy, and long-term planning.</li>
-      <li><b>A living climate</b> — seas that can warm and cool back down, coasts that flood, city tiles flood last, and a flooded city is lost.</li>
-      <li><b>Multiplayer that stays in sync</b> — two copies playing the same game turn by turn, hash-checked. Being proven right now.</li>
-      <li><b>Speed work</b> — measure first, then make a 2001 game run like it isn't from 2001.</li>
-    </ol>
+        <details class="impl"><summary><b>The Nemesis ledger</b> — the game writes down every betrayal, sneak attack, and razed city, and AI rivals hold real grudges.</summary><p>How it works: every pair of civilizations keeps a running grudge and favor score: all 465 pairs in a 31-civ game, plus the biggest individual reasons with the year each one happened. Grudges come from surprise attacks, declaring war, razing or capturing cities, nuclear strikes, broken deals and caught spies. Favors come from gifts, returned cities, honored alliances and fighting a common enemy. Leaders weight events differently and forgive at different rates, so a warlike civ nurses a vendetta while a peaceful one lets things fade. Cross a threshold and the score starts bending real decisions: attitude, trade prices, who gets targeted in a war, who signs alliances and embargoes. The reasons show inside the diplomacy screen, never as popups, and caps plus diminishing returns stop gift-spam from buying permanent friendship. Severity matters: a capital or a wonder city counts for far more than an ordinary town.</p></details>
+    <details class="impl"><summary><b>Vassalage</b> — beaten rivals can bend the knee and serve a stronger power instead of fighting to the last city. Built on top of the ledger.</summary><p>How it works: there are three ways in. A peace term ending a war, a demand backed by overwhelming power (roughly 3-to-1 on a composite of cities, population, military and economic strength), or a small civ voluntarily asking a big one for protection. Vassals pay a gold tithe in 10% or 20% steps, contribute science from their Libraries, Universities and Research Labs, automatically join their overlord's wars, and give up independent war and alliance diplomacy. Tributaries pay more gold instead, stay fully free, and can never be absorbed. A long-held vassal can eventually be integrated: gradually, at a gold cost per turn, cheapest cities first and the capital last.</p></details>
+    <details class="impl"><summary><b>Loyalty</b> — cities and vassals keep a loyalty score, with the ledger as its memory, so empires can crack from the inside.</summary><p>How it works: every subject carries a loyalty score from -100 to +100 that drifts a little each turn. What moves it, weighted most first: how the subject's culture, science and military power compare to the overlord's; how harsh the contract is; what the Nemesis ledger says about the pair, including wars the subject was dragged into; and whether their governments match. At -50 the subject stops paying its tithe and science, and starts quietly seeking a secret pledge to a rival. At -100, if the power gap has closed to roughly 2-to-1, it can declare a war of independence. Secret fealty: when the rival it pledged to goes to war with its overlord, the subject defects.</p></details>
+    <details class="impl"><summary><b>Smarter AI opponents</b> — better war-making, diplomacy, and long-term planning.</summary><p>How it works: vanilla Civ3 has no war planner at all. Every unit picks its own target, which is why AI armies drip-feed single units into your guns. This stage adds a per-civ war coordinator: assemble stacks before attacking, bombard before assaulting, escort the artillery and the transports, retreat and heal damaged units, focus weak border targets, and never take suicidal odds. The same stage fixes workers, scoring every job by its real yield after government penalties (never irrigate a tile Despotism makes pointless), with a full re-audit after every government change. And it fixes city build choices: what the city actually needs first, current-era units only, garrisons sized to the real threat. No more five archers standing guard in the age of infantry.</p></details>
+    <details class="impl"><summary><b>A living climate</b> — seas that can warm and cool back down, coasts that flood, city tiles flood last, and a flooded city is lost.</summary><p>How it works: vanilla warming is a one-way ratchet. Pollution degrades tiles and it is permanent. The new system makes it two-way: the warming level can fall again when world pollution output stays low, degraded tiles slowly step back (desert to plains to grassland), and workers gain a restore action to speed the recovery along. Push warming high instead, and coastal land starts converting into actual sea: land bridges sever, peninsulas become islands, trade routes and borders redraw themselves. City tiles flood last of all, and a city that goes under is destroyed, which is exactly what makes reversing warming worth doing in time.</p></details>
+    <details class="impl"><summary><b>Multiplayer that stays in sync</b> — two copies playing the same game turn by turn, hash-checked. Being proven right now.</summary><p>How it works: two copies of the modded game play the same scripted opening from the same save, and after every turn each machine hashes its full game state. Matching hashes mean both machines simulated the identical game. The hashes are split by subsystem, so when something does diverge, the report names which part of the game broke sync instead of just saying 'desync'. Every feature in the mod is built to the same rule: decisions come only from synced game state, never from local randomness, wall-clock time, or per-machine settings.</p></details>
+    <details class="impl"><summary><b>Speed work</b> — measure first, then make a 2001 game run like it isn't from 2001.</summary><p>How it works: profile first, fix what the evidence indicts, measure again. The famous suspect, the trade-network calculation, turned out to be only about 0.5 to 3.6 percent of turn time on the biggest save tested, and the C3X Trade Net X path already replaced it anyway. Over 96 percent of late-game turn time is still unattributed, so the next step is profiling a generated 160x160 huge-map game to find where the time actually goes. Every optimization has to be behavior-preserving: the same game, just less waiting.</p></details>
   </div>
 
   <h2>Suggestion box</h2>
