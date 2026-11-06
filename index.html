@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Civ3 Project — Progress Board</title>
+<style>
+  :root { --ink:#0f1420; --card:#182034; --line:#2a3552; --text:#e8ecf4; --dim:#9aa7c2; --amber:#f2b24a; --green:#4ade80; --gray:#8b96ad; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--ink); color:var(--text); font-family: Georgia, 'Times New Roman', serif; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 18px 60px; }
+  h1 { font-size: 2rem; margin: 0 0 6px; }
+  h2 { font-size: 1.15rem; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin: 34px 0 12px; }
+  .sub { color: var(--dim); font-size: 1.05rem; line-height: 1.5; margin: 0 0 4px; }
+  .updated { color: var(--dim); font-size: .85rem; font-style: italic; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin: 10px 0; }
+  .card h3 { margin: 0 0 6px; font-size: 1.1rem; }
+  .card p { margin: 0; color: var(--dim); line-height: 1.55; }
+  .pill { display:inline-block; font-family: Verdana, sans-serif; font-size:.68rem; font-weight:bold; letter-spacing:.08em; padding: 3px 9px; border-radius: 999px; margin-bottom: 8px; }
+  .running { background:#14532d; color:var(--green); }
+  .running::before { content:"● "; animation: pulse 1.6s infinite; }
+  @keyframes pulse { 50% { opacity:.35; } }
+  .paused { background:#4a3205; color:var(--amber); }
+  .queued { background:#26314d; color:var(--gray); }
+  .done { background:#1e3a5f; color:#7cc4ff; }
+  ol.queue { margin:0; padding-left: 22px; color: var(--dim); line-height: 1.6; }
+  ol.queue b { color: var(--text); }
+  .road { color: var(--dim); line-height: 1.7; }
+  label { display:block; font-family: Verdana, sans-serif; font-size:.8rem; color:var(--dim); margin: 12px 0 5px; }
+  input, select, textarea { width:100%; background:#0d1120; border:1px solid var(--line); border-radius:8px; color:var(--text); padding:10px; font-size:1rem; font-family: inherit; }
+  textarea { min-height: 110px; resize: vertical; }
+  button { margin-top: 14px; background: var(--amber); color:#1a1206; border:0; border-radius: 8px; padding: 11px 22px; font-size: 1rem; font-weight: bold; cursor: pointer; }
+  button:hover { filter: brightness(1.08); }
+  .hp { position:absolute; left:-9999px; width:1px; height:1px; opacity:0; }
+  .msg { margin-top: 12px; line-height: 1.5; }
+  .ok { color: var(--green); } .warn { color: var(--amber); }
+  .fallback { white-space: pre-wrap; background:#0d1120; border:1px dashed var(--line); border-radius:8px; padding:10px; margin-top:8px; user-select: all; }
+  footer { margin-top: 44px; color: var(--dim); font-size:.85rem; text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🏛️ Civ3 Project — Progress Board</h1>
+  <p class="sub">Nick is teaching a 2001 strategy game new tricks: a long-running mod project for Civilization III, built with AI help in a sandboxed test lab.</p>
+  <p class="updated">Last updated: Thursday, November 5, 2026, 11:15 PM CT — updated whenever something changes.</p>
+
+  <h2>Happening now</h2>
+  <div class="card">
+    <span class="pill running">RUNNING</span>
+    <h3>Multiplayer sync probe</h3>
+    <p>Can two copies of the modded game play the same network game and stay perfectly in sync? The feasibility test (two game instances, one hosting, one joining over a local loopback connection) is in progress right now.</p>
+  </div>
+  <div class="card">
+    <span class="pill paused">PAUSED · CHECKPOINT SAVED</span>
+    <h3>Single-player stability runs</h3>
+    <p>Long test games that watch for crashes and weird behavior. Paused at a saved checkpoint while multiplayer gets tested first; it resumes exactly where it left off.</p>
+  </div>
+
+  <h2>Up next</h2>
+  <div class="card">
+    <ol class="queue">
+      <li><b>Performance baseline</b> — how fast the modded game actually runs, measured properly.</li>
+      <li><b>Stage 1 report</b> — the verdict that pulls everything together.</li>
+      <li><b>Stage 2: first real features</b> — locked until Stage 1 passes its report.</li>
+    </ol>
+  </div>
+
+  <h2>Recently finished</h2>
+  <div class="card"><span class="pill done">✓ DONE</span><h3>Test lab stood up in its own virtual machine</h3><p>PASS (Nov 5).</p></div>
+  <div class="card"><span class="pill done">✓ DONE</span><h3>The bug that kept ending test games early is found and fixed</h3><p>Turned out the game was fine; the tooling was misreading the year counter on screen.</p></div>
+  <div class="card"><span class="pill done">✓ DONE</span><h3>Self-continuing work sessions</h3><p>When a session fills up, it writes a checkpoint and a fresh one picks up automatically. No more lost progress.</p></div>
+
+  <h2>The road ahead</h2>
+  <div class="card road">Stage 1: Stabilize (in progress) → Stage 2: First features → Stage 3: More features → Stage 4: Smarter AI opponents + a climate system (warming seas, coastal flooding).</div>
+
+  <h2>Suggestion box</h2>
+  <div class="card">
+    <p>Ideas welcome. Nothing appears publicly on its own: every suggestion goes to Nick first, and approved ones get appended below with a status.</p>
+    <form id="suggest">
+      <label for="name">Name (optional)</label>
+      <input id="name" maxlength="60" autocomplete="off">
+      <label for="category">Category</label>
+      <select id="category">
+        <option>Feature idea</option><option>Test idea</option><option>Quality of life</option><option>Other</option>
+      </select>
+      <label for="text">Suggestion</label>
+      <textarea id="text" maxlength="2000" required></textarea>
+      <input class="hp" id="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit">Send suggestion</button>
+      <div class="msg" id="msg"></div>
+    </form>
+  </div>
+
+  <h2>Approved suggestions</h2>
+  <div id="approved"><div class="card"><p>No approved suggestions yet. Be the first.</p></div></div>
+
+  <footer>A very serious project about a 25-year-old game. Maintained by Muse for Nick.</footer>
+</div>
+<script>
+  const form = document.getElementById('suggest');
+  const msg = document.getElementById('msg');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const category = document.getElementById('category').value;
+    const text = document.getElementById('text').value.trim();
+    const website = document.getElementById('website').value;
+    if (text.length < 3) { msg.textContent = 'Give me a little more than that.'; msg.className = 'msg warn'; return; }
+    try {
+      const r = await fetch('/api/suggest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, category, text, website }) });
+      if (!r.ok) throw new Error('bad status');
+      msg.textContent = 'Got it! Nick reviews every suggestion; approved ones appear below.';
+      msg.className = 'msg ok';
+      form.reset();
+    } catch (err) {
+      msg.className = 'msg warn';
+      msg.innerHTML = 'The suggestion box is not switched on at this address yet. For now, your text is in the box below so you can hand it to Nick directly:';
+      const box = document.createElement('div');
+      box.className = 'fallback';
+      box.textContent = '[' + category + '] ' + text + (name ? ' — ' + name : '');
+      msg.appendChild(box);
+    }
+  });
+  fetch('/api/suggest').then(r => r.ok ? r.json() : []).then(list => {
+    if (!Array.isArray(list) || !list.length) return;
+    const host = document.getElementById('approved');
+    host.innerHTML = '';
+    for (const s of list) {
+      const d = document.createElement('div');
+      d.className = 'card';
+      const h = document.createElement('h3'); h.textContent = s.text;
+      const p = document.createElement('p'); p.textContent = s.category + (s.name ? ' · ' + s.name : '') + ' · ' + (s.status || 'Approved');
+      d.appendChild(h); d.appendChild(p); host.appendChild(d);
+    }
+  }).catch(() => {});
+</script>
+</body>
+</html>
