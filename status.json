@@ -1,14 +1,7 @@
 {
-  "updated": "2026-11-07T07:44:51-06:00",
-  "updated_label": "Saturday, November 7, 2026, 7:44 AM CT",
-  "now": [
-    {
-      "key": "i4",
-      "state": "running",
-      "title": "Do modded save files keep their extra data?",
-      "body": "Tracing how the mod writes its extra data into save files, and what decides whether that data survives a reload. The answer becomes a permanent part of the Stage 1 report."
-    }
-  ],
+  "updated": "2026-11-07T07:48:27-06:00",
+  "updated_label": "Saturday, November 7, 2026, 7:48 AM CT",
+  "now": [],
   "next": [
     {
       "title": "Performance baseline",
@@ -24,6 +17,10 @@
     }
   ],
   "finished": [
+    {
+      "title": "Do modded save files keep their extra data?",
+      "body": "PASS (Nov 7). The mod's extra data rides at the very end of the save file, outside the game's own format, and is only found by reading backwards from the end. If that trailer is damaged or cut, the data silently resets to defaults. The report now lists the exact ways it can be lost, and how players can avoid them."
+    },
     {
       "title": "Multiplayer sync: what 'in sync' actually means",
       "body": "PASS (Nov 7). The game's own sync check only watches its random-number stream, and the mod's extra data never crosses the network directly, so two copies can drift apart silently. The spec now names exactly what to compare, turn by turn."
