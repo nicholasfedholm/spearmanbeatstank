@@ -3,17 +3,6 @@
   "updated_label": "Saturday, November 7, 2026, 7:44 AM CT",
   "now": [
     {
-      "state": "blocked",
-      "title": "Multiplayer sync probe",
-      "body": "Not running right now. The two-copy feasibility test is blocked: the second modded instance exits immediately at startup, so no join or hash comparison has run yet. No multiplayer test has passed yet. Next step is Nick's call on the retry route."
-    },
-    {
-      "state": "paused",
-      "pill": "PAUSED · CHECKPOINT SAVED",
-      "title": "Single-player stability runs",
-      "body": "Long test games that watch for crashes and weird behavior. Paused at a saved checkpoint while multiplayer gets tested first; it resumes exactly where it left off."
-    },
-    {
       "key": "i4",
       "state": "running",
       "title": "Do modded save files keep their extra data?",
