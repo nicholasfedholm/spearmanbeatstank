@@ -1,7 +1,14 @@
 {
-  "updated": "2026-11-07T07:48:27-06:00",
-  "updated_label": "Saturday, November 7, 2026, 7:48 AM CT",
-  "now": [],
+  "updated": "2026-11-07T07:49:22-06:00",
+  "updated_label": "Saturday, November 7, 2026, 7:49 AM CT",
+  "now": [
+    {
+      "key": "i5",
+      "state": "running",
+      "title": "Which trade-network code really runs?",
+      "body": "Following the actual call path during a computer player's turn to see whether the original trade routine or the mod's replacement is the one that executes. The answer decides what the performance work is allowed to touch."
+    }
+  ],
   "next": [
     {
       "title": "Performance baseline",
