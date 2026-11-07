@@ -1,14 +1,7 @@
 {
-  "updated": "2026-11-07T08:03:00-06:00",
-  "updated_label": "Saturday, November 7, 2026, 8:03 AM CT",
-  "now": [
-    {
-      "key": "p1",
-      "state": "running",
-      "title": "Single-player stability runs",
-      "body": "Running now (Nov 7). Twenty-turn test games on both the original and modded builds, watching for crashes or hangs."
-    }
-  ],
+  "updated": "2026-11-07T14:21:20-06:00",
+  "updated_label": "Saturday, November 7, 2026, 2:21 PM CT",
+  "now": [],
   "next": [
     {
       "title": "Performance baseline",
@@ -24,6 +17,10 @@
     }
   ],
   "finished": [
+    {
+      "title": "Single-player stability runs",
+      "body": "BLOCKED (Nov 7). The standard build ran its full twenty turns with clean saves and reloads, but the test setup hit a voting screen it doesn't know how to dismiss yet, and stopped by its own rule. The modded build hasn't run yet. The next step is a decision on one more fix for the test setup."
+    },
     {
       "title": "Which trade-network code really runs?",
       "body": "PASS (Nov 7). Both run, at different layers: the original game code does the trade-network recompute, and the mod's replacement only takes over two pathfinding steps when its Trade Net X add-on is loaded. The performance column measures the whole recompute, not one side alone."
