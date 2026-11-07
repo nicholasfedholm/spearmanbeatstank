@@ -4,9 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spearman beats Tank: Civ3 Mod Progress Board</title>
-<meta name="description" content="Progress board for a long-running Civilization III mod: multiplayer sync, a Nemesis grudge ledger, vassalage, smarter AI and a living climate. Status, queue, and a suggestion box.">
+<meta name="description" content="Progress board for a long-running Civilization III mod: multiplayer sync, a Nemesis grudge ledger, vassalage, smarter AI and a living climate. Status, roadmap, and a suggestion box.">
 <link rel="canonical" href="https://spearmanbeatstank.com/">
-<meta name="theme-color" content="#0b181a">
+<meta name="theme-color" content="#f4ecdb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1a1b" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Spearman beats Tank">
 <meta property="og:title" content="Spearman beats Tank: Civ3 Mod Progress Board">
@@ -18,196 +20,354 @@
 <meta property="og:image:alt" content="A lone spearman bringing down a modern tank in front of a storybook city">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="preload" as="image" type="image/webp" href="hero-860.webp" imagesrcset="hero-860.webp 860w, hero-1280.webp 1280w, hero-1720.webp 1720w" imagesizes="(max-width: 896px) calc(100vw - 60px), 836px" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" href="hero-860.webp" imagesrcset="hero-860.webp 860w, hero-1280.webp 1280w, hero-1720.webp 1720w" imagesizes="(max-width: 900px) calc(100vw - 32px), 640px" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-  :root { --ink:#0b181a; --card1:#12262a; --card2:#102225; --line:#2b4443; --text:#f0e7d3; --dim:#a8b8ae; --gold:#d9a441; --crimson:#b3392f; --teal:#7fb3a8; }
-  * { box-sizing: border-box; }
-  ::selection { background: var(--crimson); color: #fff6dd; }
-  body { margin:0; color:var(--text); font-family: 'Spectral', Georgia, 'Times New Roman', serif;
-    background:
-      radial-gradient(circle at 12% 60px, rgba(179,57,47,.14) 0 26px, transparent 27px),
-      radial-gradient(circle at 22% 130px, rgba(127,179,168,.12) 0 16px, transparent 17px),
-      radial-gradient(circle at 86% 90px, rgba(217,164,65,.12) 0 20px, transparent 21px),
-      radial-gradient(circle at 93% 190px, rgba(179,57,47,.10) 0 12px, transparent 13px),
-      radial-gradient(circle at 70% 40px, rgba(127,179,168,.10) 0 10px, transparent 11px),
-      var(--ink);
-    background-repeat: no-repeat; }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 10px 18px 60px; }
-  .hero { background: linear-gradient(rgba(11,24,26,.25), rgba(11,24,26,.88)); border-bottom: 3px solid var(--gold); padding: 42px 18px 38px; }
-  .hero .inner { max-width: 860px; margin: 0 auto; }
-  .wordmark { font-family: 'Cinzel', Georgia, serif; font-weight: 800; font-size: 2.9rem; letter-spacing: .02em; line-height: 1.05; color: #fff6dd; text-shadow: 0 2px 16px rgba(0,0,0,.8); margin: 0 0 4px; }
-  .wordmark .beats { color: var(--gold); }
-  .tagline { font-family: 'Cinzel', Georgia, serif; font-weight: 600; letter-spacing: .34em; font-size: .8rem; color: var(--teal); margin: 0 0 16px; text-transform: uppercase; }
-  .hero .sub { color: #f2e8cd; text-shadow: 0 1px 10px rgba(0,0,0,.85); max-width: 620px; }
-  .hero .updated { color: #ddd0a8; text-shadow: 0 1px 8px rgba(0,0,0,.85); }
-  .frame { margin: 20px 0 0; background: #efe6cf; padding: 12px 12px 10px; border: 2px solid var(--gold); border-radius: 6px; box-shadow: 0 18px 50px rgba(0,0,0,.6); }
-  .frame img { display: block; width: 100%; height: auto; border-radius: 2px; }
-  .frame figcaption { text-align: center; font-style: italic; color: #4a3a1c; font-size: .95rem; padding-top: 9px; }
-  h1 { font-size: 2rem; margin: 0 0 6px; }
-  h2 { font-family: 'Cinzel', Georgia, serif; font-weight: 600; font-size: 1.12rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin: 38px 0 12px; }
-  h2::before { content: ""; display: inline-block; width: 32px; height: 13px; margin-right: 11px; vertical-align: baseline;
-    background:
-      radial-gradient(circle at 6px 7px, var(--crimson) 4px, transparent 5px),
-      radial-gradient(circle at 17px 4px, var(--teal) 3px, transparent 4px),
-      radial-gradient(circle at 26px 8px, var(--gold) 3px, transparent 4px); }
-  .sub { color: var(--dim); font-size: 1.05rem; line-height: 1.5; margin: 0 0 4px; }
-  .updated { color: var(--dim); font-size: .85rem; font-style: italic; }
-  .card { background: linear-gradient(160deg, var(--card1), var(--card2)); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin: 10px 0; box-shadow: 0 6px 22px rgba(0,0,0,.28); }
-  .card h3 { margin: 0 0 6px; font-size: 1.12rem; font-weight: 600; }
-  .card p { margin: 0; color: var(--dim); line-height: 1.55; }
-  .pill { display:inline-block; font-family: 'Spectral', Georgia, serif; font-size:.68rem; font-weight:600; letter-spacing:.1em; padding: 3px 9px; border-radius: 999px; margin-bottom: 8px; }
-  .running { background:#5e1f1a; color:#ffb4a2; }
-  .running::before { content:"● "; animation: pulse 1.6s infinite; }
-  @keyframes pulse { 50% { opacity:.35; } }
-  @media (prefers-reduced-motion: reduce) { .running::before { animation: none; } }
-  .skip { position:absolute; left:-9999px; top:8px; background:var(--gold); color:#1a1206; padding:8px 14px; border-radius:6px; z-index:10; font-weight:600; }
-  .skip:focus { left:8px; }
-  a { color: var(--gold); }
-  input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-  .intro { margin-bottom: 8px; }
-  .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-  button.secondary { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
-  .paused { background:#57430f; color:var(--gold); }
-  .queued { background:#22333a; color:#9fb4ac; }
-  .done { background:#173f3a; color:#9fe8d8; }
-  .blocked { background:#4a1f3a; color:#f2b8d8; }
-  ol.queue { margin:0; padding-left: 22px; color: var(--dim); line-height: 1.6; }
-  ol.queue b { color: var(--text); }
-  .road { color: var(--dim); line-height: 1.7; }
-  .timeline { display: flex; position: relative; padding: 8px 0 2px; }
-  .timeline::before { content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 17px; height: 2px; background: var(--line); }
-  .tstep { flex: 1; text-align: center; position: relative; padding: 0 4px; }
-  .tstep .dot { display: block; width: 18px; height: 18px; margin: 0 auto 8px; border-radius: 50%; background: var(--card2); border: 2px solid var(--dim); position: relative; z-index: 1; }
-  .tstep b { display: block; font-family: 'Cinzel', Georgia, serif; font-size: .92rem; letter-spacing: .06em; color: var(--text); }
-  .tstep i { display: block; font-style: normal; color: var(--dim); font-size: .9rem; margin-top: 2px; }
-  .tstep em { display: block; font-style: italic; color: var(--gold); font-size: .82rem; margin-top: 2px; }
-  .tstep.now .dot { background: var(--crimson); border-color: var(--gold); box-shadow: 0 0 0 4px rgba(217,164,65,.18); }
-  .tstep.now b { color: var(--gold); }
-  @media (max-width: 620px) {
-    .wordmark { font-size: 2.1rem; }
-    .timeline { flex-direction: column; gap: 14px; padding-left: 6px; }
-    .timeline::before { left: 14px; right: auto; top: 8px; bottom: 8px; width: 2px; height: auto; }
-    .tstep { text-align: left; padding-left: 30px; }
-    .tstep .dot { position: absolute; left: 0; top: 2px; margin: 0; }
+  :root {
+    --bg: #f4ecdb; --paper: #fbf6ea; --paper-2: #efe4cc; --ink: #1f2624; --muted: #59605a; --line: #d9c9a3;
+    --gold: #8f6212; --gold-bright: #c9952f; --crimson: #a3352b; --teal: #2b6b62; --shadow: 0 1px 2px rgba(60,40,10,.08), 0 10px 30px rgba(60,40,10,.10);
+    --s-running: #2b6b62; --s-running-bg: #dcece6; --s-blocked: #a3352b; --s-blocked-bg: #f4dcd6;
+    --s-paused: #8f6212; --s-paused-bg: #f3e5c2; --s-queued: #59605a; --s-queued-bg: #e7e1d2; --s-done: #2f6b3c; --s-done-bg: #dcebd9;
+    --radius: 14px; --wrap: 1080px;
   }
-  details.impl { border-top: 1px solid var(--line); padding: 10px 0 6px; }
-  details.impl:first-of-type { border-top: 0; }
-  details.impl summary { cursor: pointer; color: var(--dim); line-height: 1.55; }
-  details.impl summary b { color: var(--text); }
-  details.impl summary:hover b, details.impl summary:focus-visible b { color: var(--gold); }
-  details.impl summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-  details.impl p { margin: 8px 0 8px 16px; }
-  label { display:block; font-family: 'Spectral', Georgia, serif; font-size:.8rem; letter-spacing:.04em; color:var(--dim); margin: 12px 0 5px; }
-  input, select, textarea { width:100%; background:#0a1416; border:1px solid var(--line); border-radius:8px; color:var(--text); padding:10px; font-size:1rem; font-family: inherit; }
-  textarea { min-height: 110px; resize: vertical; }
-  button { margin-top: 14px; background: var(--gold); color:#1a1206; border:0; border-radius: 8px; padding: 11px 22px; font-size: 1rem; font-weight: 600; cursor: pointer; font-family: 'Spectral', Georgia, serif; }
-  button:hover { filter: brightness(1.08); }
-  .msg { margin-top: 12px; line-height: 1.5; }
-  .ok { color: #8fe3b0; } .warn { color: var(--gold); }
-  .fallback { white-space: pre-wrap; background:#0a1416; border:1px dashed var(--line); border-radius:8px; padding:10px; margin-top:8px; user-select: all; }
-  footer { margin-top: 44px; color: var(--dim); font-size:.85rem; text-align:center; }
-  footer .signoff { margin-top: 8px; font-family: 'Cinzel', Georgia, serif; letter-spacing: .18em; color: var(--gold); font-size: .8rem; }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1a1b; --paper: #142427; --paper-2: #1a2e31; --ink: #f0e7d3; --muted: #a8b8ae; --line: #2c4645;
+      --gold: #d9a441; --gold-bright: #e8b955; --crimson: #e0675b; --teal: #7fb3a8; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+      --s-running: #8fd0c2; --s-running-bg: #173a36; --s-blocked: #f2a199; --s-blocked-bg: #44201d;
+      --s-paused: #e8b955; --s-paused-bg: #3d3112; --s-queued: #a8b8ae; --s-queued-bg: #22333a; --s-done: #9fe0a8; --s-done-bg: #1b3a22;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before { animation: none !important; transition: none !important; } }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.6 'Spectral', Georgia, 'Times New Roman', serif; -webkit-font-smoothing: antialiased; }
+  ::selection { background: var(--crimson); color: #fff6dd; }
+  a { color: var(--gold); text-underline-offset: 3px; }
+  a:hover { color: var(--crimson); }
+  :focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 700px) { .wrap { padding: 0 28px; } }
+  .skip { position: absolute; left: -9999px; top: 8px; z-index: 50; background: var(--gold); color: var(--paper); padding: 8px 14px; border-radius: 8px; font-weight: 600; text-decoration: none; }
+  .skip:focus { left: 8px; }
+
+  /* Top bar */
+  .topbar { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  .topbar .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: 'Cinzel', Georgia, serif; font-weight: 800; color: var(--ink); text-decoration: none; letter-spacing: .02em; white-space: nowrap; }
+  .brand img { width: 28px; height: 28px; }
+  .brand b { color: var(--gold); font-weight: 800; }
+  .nav { margin-left: auto; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { color: var(--muted); text-decoration: none; font-size: .95rem; padding: 6px 10px; border-radius: 8px; white-space: nowrap; }
+  .nav a:hover { color: var(--ink); background: var(--paper-2); }
+  .nav a.cta { color: var(--paper); background: var(--gold); }
+  .nav a.cta:hover { background: var(--crimson); color: #fff6dd; }
+  @media (max-width: 640px) { .brand span { display: none; } .nav a:not(.cta) { padding: 6px 7px; font-size: .9rem; } }
+
+  /* Hero */
+  .hero { padding: 48px 0 40px; background:
+      radial-gradient(600px 300px at 85% 0%, color-mix(in srgb, var(--gold-bright) 16%, transparent), transparent 70%),
+      radial-gradient(500px 260px at 0% 100%, color-mix(in srgb, var(--teal) 12%, transparent), transparent 70%); }
+  .hero .wrap { display: grid; gap: 36px; align-items: center; }
+  @media (min-width: 900px) { .hero .wrap { grid-template-columns: 1fr 1.25fr; gap: 48px; } .hero { padding: 72px 0 64px; } }
+  .eyebrow { font-family: 'Cinzel', Georgia, serif; font-weight: 600; font-size: .78rem; letter-spacing: .28em; text-transform: uppercase; color: var(--teal); margin: 0 0 14px; }
+  .wordmark { font-family: 'Cinzel', Georgia, serif; font-weight: 800; font-size: clamp(2.4rem, 7vw, 4rem); line-height: 1.02; letter-spacing: .01em; margin: 0 0 18px; }
+  .wordmark .beats { display: block; color: var(--gold); font-size: .55em; letter-spacing: .3em; margin: 6px 0 4px; }
+  .lede { font-size: 1.2rem; color: var(--muted); margin: 0 0 24px; max-width: 34ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; border-radius: 10px; padding: 11px 20px; font: 600 1rem 'Spectral', Georgia, serif; text-decoration: none; cursor: pointer; transition: transform .15s ease, background .15s ease; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--gold); color: var(--paper); }
+  .btn-primary:hover { background: var(--crimson); color: #fff6dd; }
+  .btn-ghost { border-color: var(--line); color: var(--ink); background: var(--paper); }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--ink); }
+  .painting { margin: 0; position: relative; }
+  .painting picture { display: block; background: var(--paper); padding: 10px; border-radius: 6px; border: 1px solid var(--line); box-shadow: var(--shadow); transform: rotate(.6deg); }
+  .painting img { display: block; width: 100%; height: auto; border-radius: 3px; }
+  .painting figcaption { margin-top: 12px; text-align: center; font-style: italic; color: var(--muted); font-size: .95rem; }
+
+  /* Sections */
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+  h2 { font-family: 'Cinzel', Georgia, serif; font-weight: 800; font-size: clamp(1.5rem, 3.4vw, 2rem); letter-spacing: .02em; margin: 0; }
+  h2 small { display: block; font-family: 'Spectral', Georgia, serif; font-weight: 400; font-style: italic; font-size: 1rem; letter-spacing: 0; color: var(--muted); margin-top: 4px; }
+  h3 { font-size: 1.15rem; font-weight: 600; margin: 0 0 6px; line-height: 1.35; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--shadow); }
+  .card p { margin: 0; color: var(--muted); }
+
+  /* Turn report */
+  .stamp { font-size: .95rem; color: var(--muted); font-style: italic; }
+  .summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 22px; }
+  @media (min-width: 700px) { .summary { grid-template-columns: repeat(4, 1fr); } }
+  .stat { background: var(--paper-2); border-radius: 12px; padding: 14px 16px; }
+  .stat b { display: block; font-family: 'Cinzel', Georgia, serif; font-size: 1.6rem; line-height: 1.1; }
+  .stat span { font-size: .9rem; color: var(--muted); }
+  .now-grid { display: grid; gap: 14px; }
+  @media (min-width: 800px) { .now-grid { grid-template-columns: 1fr 1fr; } }
+  .status { position: relative; overflow: hidden; padding-left: 26px; }
+  .status::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--c, var(--s-queued)); }
+  .pill { display: inline-flex; align-items: center; gap: 6px; font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; color: var(--c); background: var(--cb); }
+  .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .st-running { --c: var(--s-running); --cb: var(--s-running-bg); }
+  .st-running .pill::before { animation: pulse 1.6s infinite; }
+  @keyframes pulse { 50% { opacity: .25; } }
+  .st-blocked { --c: var(--s-blocked); --cb: var(--s-blocked-bg); }
+  .st-paused { --c: var(--s-paused); --cb: var(--s-paused-bg); }
+  .st-queued { --c: var(--s-queued); --cb: var(--s-queued-bg); }
+  .st-done { --c: var(--s-done); --cb: var(--s-done-bg); }
+
+  /* Roadmap */
+  .road { position: relative; display: grid; gap: 14px; }
+  @media (min-width: 760px) { .road { grid-template-columns: repeat(var(--n, 4), 1fr); gap: 12px; } }
+  .track { height: 8px; border-radius: 999px; background: var(--paper-2); margin: 4px 0 22px; overflow: hidden; }
+  .track i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--teal), var(--gold-bright)); border-radius: inherit; transition: width .8s ease; }
+  .era { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+  .era .num { font-family: 'Cinzel', Georgia, serif; font-size: .8rem; letter-spacing: .2em; color: var(--muted); text-transform: uppercase; }
+  .era h3 { margin: 4px 0 2px; }
+  .era p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .era.current { border-color: var(--gold); box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold-bright) 25%, transparent), var(--shadow); }
+  .era.current .num { color: var(--gold); }
+  .era.past { opacity: .75; }
+
+  /* Queue + finished */
+  .two { display: grid; gap: 22px; }
+  @media (min-width: 860px) { .two { grid-template-columns: 1fr 1fr; gap: 28px; } }
+  .two h3.col { font-family: 'Cinzel', Georgia, serif; font-size: 1.05rem; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin: 0 0 12px; }
+  ol.queue { list-style: none; counter-reset: q; margin: 0; padding: 0; display: grid; gap: 10px; }
+  ol.queue li { counter-increment: q; display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; }
+  ol.queue li::before { content: counter(q); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); font-family: 'Cinzel', Georgia, serif; font-weight: 800; color: var(--gold); }
+  ol.queue b { display: block; }
+  ol.queue span { color: var(--muted); }
+  .done-list { display: grid; gap: 10px; }
+  .done-item { display: grid; grid-template-columns: 34px 1fr; gap: 12px; }
+  .done-item .tick { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--s-done-bg); color: var(--s-done); font-weight: 700; }
+  .done-item p { margin: 0; color: var(--muted); }
+
+  /* Features */
+  .features { display: grid; gap: 14px; }
+  @media (min-width: 760px) { .features { grid-template-columns: 1fr 1fr; } }
+  .feature { display: flex; flex-direction: column; }
+  .feature .icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--paper-2); color: var(--gold); margin-bottom: 12px; }
+  .feature .icon svg { width: 24px; height: 24px; }
+  .feature details { margin-top: 12px; border-top: 1px dashed var(--line); padding-top: 10px; }
+  .feature summary { cursor: pointer; color: var(--gold); font-weight: 600; list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+  .feature summary::-webkit-details-marker { display: none; }
+  .feature summary::after { content: "+"; font-size: 1.1rem; line-height: 1; }
+  .feature details[open] summary::after { content: "\2212"; }
+  .feature details p { margin-top: 10px; font-size: .98rem; }
+
+  /* Suggest */
+  .suggest { display: grid; gap: 22px; }
+  @media (min-width: 860px) { .suggest { grid-template-columns: .9fr 1.1fr; gap: 36px; align-items: start; } }
+  .suggest .copy p { color: var(--muted); margin: 12px 0 0; }
+  label { display: block; font-size: .9rem; font-weight: 600; margin: 14px 0 6px; }
+  label:first-child { margin-top: 0; }
+  .opt { font-weight: 400; color: var(--muted); }
+  input, select, textarea { width: 100%; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; font: inherit; font-size: 1rem; }
+  input:focus, select:focus, textarea:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold-bright) 25%, transparent); }
+  textarea { min-height: 130px; resize: vertical; }
+  .field-row { display: grid; gap: 0 14px; }
+  @media (min-width: 560px) { .field-row { grid-template-columns: 1fr 1fr; } }
+  form .btn { margin-top: 16px; }
+  .msg { margin-top: 12px; }
+  .msg.ok { color: var(--s-done); } .msg.warn { color: var(--crimson); }
+  .fallback { white-space: pre-wrap; background: var(--bg); border: 1px dashed var(--line); border-radius: 10px; padding: 10px 12px; margin-top: 8px; color: var(--ink); user-select: all; }
+  .approved { display: grid; gap: 10px; margin-top: 22px; }
+
+  footer { border-top: 1px solid var(--line); padding: 36px 0 48px; text-align: center; color: var(--muted); font-size: .95rem; }
+  footer .score { font-family: 'Cinzel', Georgia, serif; letter-spacing: .2em; color: var(--gold); margin-top: 8px; }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to the progress board</a>
-<header class="hero"><div class="inner">
-  <h1 class="wordmark">Spearman <span class="beats">beats</span> Tank</h1>
-  <p class="tagline">Civ3 Project · Progress Board</p>
-  <p class="sub">Nick is teaching a 2001 strategy game new tricks: a long-running mod project for Civilization III, built with AI help in a sandboxed test lab.</p>
-  <p class="updated" id="updated">Last updated: <time id="updated-time"></time>. Updated whenever something changes.</p>
-  <figure class="frame"><picture>
-    <source type="image/webp" srcset="hero-860.webp 860w, hero-1280.webp 1280w, hero-1720.webp 1720w" sizes="(max-width: 896px) calc(100vw - 60px), 836px">
-    <img src="hero.jpg" width="1920" height="1085" fetchpriority="high" decoding="async" alt="A lone spearman bringing down a modern tank in front of a storybook city, painted in the watercolor style of Nick's desktop wallpaper">
-  </picture><figcaption>The spearman, as always, wins.</figcaption></figure>
-</div></header>
-<main class="wrap" id="main">
 
-  <noscript><div class="card"><p>The live status sections need JavaScript. The raw status is in <a href="status.json">status.json</a>.</p></div></noscript>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Spearman beats Tank, back to top"><img src="favicon.svg" alt="" width="28" height="28"><span>Spearman <b>beats</b> Tank</span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#status">Status</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#plan">The plan</a>
+      <a class="cta" href="#suggest">Suggest</a>
+    </nav>
+  </div>
+</header>
 
-  <h2>Happening now</h2>
-  <div id="now" aria-live="polite"><div class="card"><p>Loading status…</p></div></div>
-
-  <h2>Up next</h2>
-  <div class="card"><ol class="queue" id="next"></ol></div>
-
-  <h2>Recently finished</h2>
-  <div id="finished"></div>
-
-  <h2>The road ahead</h2>
-  <div class="card"><div class="timeline" id="stages"></div></div>
-
-  <h2>The implementation list</h2>
-  <div class="card">
-    <p class="intro">What actually gets built once the foundation (Stage 1) passes:</p>
-        <details class="impl"><summary><b>The Nemesis ledger</b>: the game writes down every betrayal, sneak attack, and razed city, and AI rivals hold real grudges.</summary><p>How it works: every pair of civilizations keeps a running grudge and favor score: all 465 pairs in a 31-civ game, plus the biggest individual reasons with the year each one happened. Grudges come from surprise attacks, declaring war, razing or capturing cities, nuclear strikes, broken deals and caught spies. Favors come from gifts, returned cities, honored alliances and fighting a common enemy. Leaders weight events differently and forgive at different rates, so a warlike civ nurses a vendetta while a peaceful one lets things fade. Cross a threshold and the score starts bending real decisions: attitude, trade prices, who gets targeted in a war, who signs alliances and embargoes. The reasons show inside the diplomacy screen, never as popups, and caps plus diminishing returns stop gift-spam from buying permanent friendship. Severity matters: a capital or a wonder city counts for far more than an ordinary town.</p></details>
-    <details class="impl"><summary><b>Vassalage</b>: beaten rivals can bend the knee and serve a stronger power instead of fighting to the last city. Built on top of the ledger.</summary><p>How it works: there are three ways in. A peace term ending a war, a demand backed by overwhelming power (roughly 3-to-1 on a composite of cities, population, military and economic strength), or a small civ voluntarily asking a big one for protection. Vassals pay a gold tithe in 10% or 20% steps, contribute science from their Libraries, Universities and Research Labs, automatically join their overlord's wars, and give up independent war and alliance diplomacy. Tributaries pay more gold instead, stay fully free, and can never be absorbed. A long-held vassal can eventually be integrated: gradually, at a gold cost per turn, cheapest cities first and the capital last.</p></details>
-    <details class="impl"><summary><b>Loyalty</b>: cities and vassals keep a loyalty score, with the ledger as its memory, so empires can crack from the inside.</summary><p>How it works: every subject carries a loyalty score from -100 to +100 that drifts a little each turn. What moves it, weighted most first: how the subject's culture, science and military power compare to the overlord's; how harsh the contract is; what the Nemesis ledger says about the pair, including wars the subject was dragged into; and whether their governments match. At -50 the subject stops paying its tithe and science, and starts quietly seeking a secret pledge to a rival. At -100, if the power gap has closed to roughly 2-to-1, it can declare a war of independence. Secret fealty: when the rival it pledged to goes to war with its overlord, the subject defects.</p></details>
-    <details class="impl"><summary><b>Smarter AI opponents</b>: better war-making, diplomacy, and long-term planning.</summary><p>How it works: vanilla Civ3 has no war planner at all. Every unit picks its own target, which is why AI armies drip-feed single units into your guns. This stage adds a per-civ war coordinator: assemble stacks before attacking, bombard before assaulting, escort the artillery and the transports, retreat and heal damaged units, focus weak border targets, and never take suicidal odds. The same stage fixes workers, scoring every job by its real yield after government penalties (never irrigate a tile Despotism makes pointless), with a full re-audit after every government change. And it fixes city build choices: what the city actually needs first, current-era units only, garrisons sized to the real threat. No more five archers standing guard in the age of infantry.</p></details>
-    <details class="impl"><summary><b>A living climate</b>: seas that can warm and cool back down, coasts that flood, city tiles flood last, and a flooded city is lost.</summary><p>How it works: vanilla warming is a one-way ratchet. Pollution degrades tiles and it is permanent. The new system makes it two-way: the warming level can fall again when world pollution output stays low, degraded tiles slowly step back (desert to plains to grassland), and workers gain a restore action to speed the recovery along. Push warming high instead, and coastal land starts converting into actual sea: land bridges sever, peninsulas become islands, trade routes and borders redraw themselves. City tiles flood last of all, and a city that goes under is destroyed, which is exactly what makes reversing warming worth doing in time.</p></details>
-    <details class="impl"><summary><b>Multiplayer that stays in sync</b>: two copies playing the same game turn by turn, hash-checked. Proof is blocked at the two-instance startup step.</summary><p>How it works: two copies of the modded game play the same scripted opening from the same save, and after every turn each machine hashes its full game state. Matching hashes mean both machines simulated the identical game. The hashes are split by subsystem, so when something does diverge, the report names which part of the game broke sync instead of just saying 'desync'. Every feature in the mod is built to the same rule: decisions come only from synced game state, never from local randomness, wall-clock time, or per-machine settings.</p></details>
-    <details class="impl"><summary><b>Speed work</b>: measure first, then make a 2001 game run like it isn't from 2001.</summary><p>How it works: profile first, fix what the evidence indicts, measure again. The famous suspect, the trade-network calculation, turned out to be only about 0.5 to 3.6 percent of turn time on the biggest save tested, and the C3X Trade Net X path already replaced it anyway. Over 96 percent of late-game turn time is still unattributed, so the next step is profiling a generated 160x160 huge-map game to find where the time actually goes. Every optimization has to be behavior-preserving: the same game, just less waiting.</p></details>
+<main id="main">
+  <div class="hero" id="top">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Civilization III mod · Progress board</p>
+        <h1 class="wordmark">Spearman <span class="beats">beats</span> Tank</h1>
+        <p class="lede">Nick is teaching a 2001 strategy game new tricks: a long-running mod project for Civilization III, built with AI help in a sandboxed test lab.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#status">See what's happening</a>
+          <a class="btn btn-ghost" href="#plan">What's being built</a>
+        </div>
+      </div>
+      <figure class="painting">
+        <picture>
+          <source type="image/webp" srcset="hero-860.webp 860w, hero-1280.webp 1280w, hero-1720.webp 1720w" sizes="(max-width: 900px) calc(100vw - 32px), 640px">
+          <img src="hero.jpg" width="1920" height="1085" fetchpriority="high" decoding="async" alt="A lone spearman bringing down a modern tank in front of a storybook city, painted in the watercolor style of Nick's desktop wallpaper">
+        </picture>
+        <figcaption>The spearman, as always, wins.</figcaption>
+      </figure>
+    </div>
   </div>
 
-  <h2>Suggestion box</h2>
-  <div class="card">
-    <p>Ideas welcome. Write it here, copy it, and hand it to Nick. Nothing gets posted automatically: Nick reviews every suggestion, and approved ones are added below with a status.</p>
-    <form id="suggest">
-      <label for="name">Name (optional)</label>
-      <input id="name" maxlength="60" autocomplete="name">
-      <label for="category">Category</label>
-      <select id="category">
-        <option>Feature idea</option><option>Test idea</option><option>Quality of life</option><option>Other</option>
-      </select>
-      <label for="text">Suggestion</label>
-      <textarea id="text" maxlength="2000" minlength="3" required></textarea>
-      <div class="row"><button type="submit">Copy suggestion</button></div>
-      <div class="msg" id="msg" role="status" aria-live="polite"></div>
-    </form>
-  </div>
+  <section id="status" aria-labelledby="status-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="status-h">Turn report<small>What the project is doing right now.</small></h2>
+        <p class="stamp">Last updated <time id="updated-time">…</time></p>
+      </div>
+      <noscript><div class="card"><p>The live status needs JavaScript. The raw status is in <a href="status.json">status.json</a>.</p></div></noscript>
+      <div class="summary" id="summary" aria-label="Summary"></div>
+      <div class="now-grid" id="now" aria-live="polite"><div class="card"><p>Loading status…</p></div></div>
+    </div>
+  </section>
 
-  <h2>Approved suggestions</h2>
-  <div id="approved"><div class="card"><p>No approved suggestions yet. Be the first.</p></div></div>
+  <section id="roadmap" aria-labelledby="roadmap-h">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="roadmap-h">The road ahead<small>Proof first, features second. Each stage unlocks the next.</small></h2></div>
+      <div class="track" role="presentation"><i id="track-fill"></i></div>
+      <ol class="road" id="stages" style="list-style:none;margin:0;padding:0"></ol>
+      <div class="two" style="margin-top:36px">
+        <div><h3 class="col">Up next</h3><ol class="queue" id="next"></ol></div>
+        <div><h3 class="col">Recently finished</h3><div class="done-list" id="finished"></div></div>
+      </div>
+    </div>
+  </section>
 
-  <footer>A very serious project about a 25-year-old game. Maintained by Muse for Nick.<div class="signoff">Spearman 1 · Tank 0.</div></footer>
+  <section id="plan" aria-labelledby="plan-h">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="plan-h">The plan<small>What actually gets built once the foundation (Stage 1) passes.</small></h2></div>
+      <div class="features">
+        <article class="card feature">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6z"/><path d="M6 3a2 2 0 0 0-2 2v2h2"/><path d="M9 8h7M9 12h7M9 16h4"/></svg></div>
+          <h3>The Nemesis ledger</h3>
+          <p>The game writes down every betrayal, sneak attack, and razed city, and AI rivals hold real grudges.</p>
+          <details><summary>How it works</summary><p>every pair of civilizations keeps a running grudge and favor score: all 465 pairs in a 31-civ game, plus the biggest individual reasons with the year each one happened. Grudges come from surprise attacks, declaring war, razing or capturing cities, nuclear strikes, broken deals and caught spies. Favors come from gifts, returned cities, honored alliances and fighting a common enemy. Leaders weight events differently and forgive at different rates, so a warlike civ nurses a vendetta while a peaceful one lets things fade. Cross a threshold and the score starts bending real decisions: attitude, trade prices, who gets targeted in a war, who signs alliances and embargoes. The reasons show inside the diplomacy screen, never as popups, and caps plus diminishing returns stop gift-spam from buying permanent friendship. Severity matters: a capital or a wonder city counts for far more than an ordinary town.</p></details>
+        </article>
+        <article class="card feature">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l4 4 5-7 5 7 4-4-2 11H5z"/><path d="M5 19h14"/></svg></div>
+          <h3>Vassalage</h3>
+          <p>Beaten rivals can bend the knee and serve a stronger power instead of fighting to the last city. Built on top of the ledger.</p>
+          <details><summary>How it works</summary><p>there are three ways in. A peace term ending a war, a demand backed by overwhelming power (roughly 3-to-1 on a composite of cities, population, military and economic strength), or a small civ voluntarily asking a big one for protection. Vassals pay a gold tithe in 10% or 20% steps, contribute science from their Libraries, Universities and Research Labs, automatically join their overlord's wars, and give up independent war and alliance diplomacy. Tributaries pay more gold instead, stay fully free, and can never be absorbed. A long-held vassal can eventually be integrated: gradually, at a gold cost per turn, cheapest cities first and the capital last.</p></details>
+        </article>
+        <article class="card feature">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 21h14"/><path d="M4 7h16"/><path d="M4 7l-2.5 6a3 3 0 0 0 5 0z"/><path d="M20 7l-2.5 6a3 3 0 0 0 5 0z"/></svg></div>
+          <h3>Loyalty</h3>
+          <p>Cities and vassals keep a loyalty score, with the ledger as its memory, so empires can crack from the inside.</p>
+          <details><summary>How it works</summary><p>every subject carries a loyalty score from -100 to +100 that drifts a little each turn. What moves it, weighted most first: how the subject's culture, science and military power compare to the overlord's; how harsh the contract is; what the Nemesis ledger says about the pair, including wars the subject was dragged into; and whether their governments match. At -50 the subject stops paying its tithe and science, and starts quietly seeking a secret pledge to a rival. At -100, if the power gap has closed to roughly 2-to-1, it can declare a war of independence. Secret fealty: when the rival it pledged to goes to war with its overlord, the subject defects.</p></details>
+        </article>
+        <article class="card feature">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></div>
+          <h3>Smarter AI opponents</h3>
+          <p>Better war-making, diplomacy, and long-term planning.</p>
+          <details><summary>How it works</summary><p>vanilla Civ3 has no war planner at all. Every unit picks its own target, which is why AI armies drip-feed single units into your guns. This stage adds a per-civ war coordinator: assemble stacks before attacking, bombard before assaulting, escort the artillery and the transports, retreat and heal damaged units, focus weak border targets, and never take suicidal odds. The same stage fixes workers, scoring every job by its real yield after government penalties (never irrigate a tile Despotism makes pointless), with a full re-audit after every government change. And it fixes city build choices: what the city actually needs first, current-era units only, garrisons sized to the real threat. No more five archers standing guard in the age of infantry.</p></details>
+        </article>
+        <article class="card feature">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 15c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/><path d="M2 20c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/><circle cx="12" cy="6" r="3"/></svg></div>
+          <h3>A living climate</h3>
+          <p>Seas that can warm and cool back down, coasts that flood, city tiles flood last, and a flooded city is lost.</p>
+          <details><summary>How it works</summary><p>vanilla warming is a one-way ratchet. Pollution degrades tiles and it is permanent. The new system makes it two-way: the warming level can fall again when world pollution output stays low, degraded tiles slowly step back (desert to plains to grassland), and workers gain a restore action to speed the recovery along. Push warming high instead, and coastal land starts converting into actual sea: land bridges sever, peninsulas become islands, trade routes and borders redraw themselves. City tiles flood last of all, and a city that goes under is destroyed, which is exactly what makes reversing warming worth doing in time.</p></details>
+        </article>
+        <article class="card feature">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7H9a5 5 0 0 0-5 5"/><path d="M17 4l3 3-3 3"/><path d="M4 17h11a5 5 0 0 0 5-5"/><path d="M7 20l-3-3 3-3"/></svg></div>
+          <h3>Multiplayer that stays in sync</h3>
+          <p>Two copies playing the same game turn by turn, hash-checked. Proof is blocked at the two-instance startup step.</p>
+          <details><summary>How it works</summary><p>two copies of the modded game play the same scripted opening from the same save, and after every turn each machine hashes its full game state. Matching hashes mean both machines simulated the identical game. The hashes are split by subsystem, so when something does diverge, the report names which part of the game broke sync instead of just saying 'desync'. Every feature in the mod is built to the same rule: decisions come only from synced game state, never from local randomness, wall-clock time, or per-machine settings.</p></details>
+        </article>
+        <article class="card feature">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12M6 21h12"/><path d="M7 3c0 5 5 6 5 9s-5 4-5 9"/><path d="M17 3c0 5-5 6-5 9s5 4 5 9"/></svg></div>
+          <h3>Speed work</h3>
+          <p>Measure first, then make a 2001 game run like it isn't from 2001.</p>
+          <details><summary>How it works</summary><p>profile first, fix what the evidence indicts, measure again. The famous suspect, the trade-network calculation, turned out to be only about 0.5 to 3.6 percent of turn time on the biggest save tested, and the C3X Trade Net X path already replaced it anyway. Over 96 percent of late-game turn time is still unattributed, so the next step is profiling a generated 160x160 huge-map game to find where the time actually goes. Every optimization has to be behavior-preserving: the same game, just less waiting.</p></details>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="suggest" aria-labelledby="suggest-h">
+    <div class="wrap suggest">
+      <div class="copy">
+        <h2 id="suggest-h">Send an envoy<small>Ideas welcome.</small></h2>
+        <p>Write your idea here, copy it, and hand it to Nick however you usually reach him. Nothing gets posted automatically: Nick reviews every suggestion, and approved ones show up below with a status.</p>
+      </div>
+      <div>
+        <form class="card" id="suggest-form">
+          <div class="field-row">
+            <div><label for="name">Name <span class="opt">(optional)</span></label><input id="name" maxlength="60" autocomplete="name"></div>
+            <div><label for="category">Category</label><select id="category"><option>Feature idea</option><option>Test idea</option><option>Quality of life</option><option>Other</option></select></div>
+          </div>
+          <label for="text">Suggestion</label>
+          <textarea id="text" maxlength="2000" minlength="3" required></textarea>
+          <button class="btn btn-primary" type="submit">Copy suggestion</button>
+          <div class="msg" id="msg" role="status" aria-live="polite"></div>
+        </form>
+        <h3 class="col" style="margin:28px 0 0;font-family:'Cinzel',Georgia,serif;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-size:1.05rem">Approved suggestions</h3>
+        <div class="approved" id="approved"><p class="stamp">No approved suggestions yet. Be the first.</p></div>
+      </div>
+    </div>
+  </section>
 </main>
+
+<footer>
+  <div class="wrap">A very serious project about a 25-year-old game. Maintained by Muse for Nick.<div class="score">Spearman 1 · Tank 0</div></div>
+</footer>
+
 <script>
   // All live status comes from status.json (single source of truth). Edit that file, not this page.
   const $ = (id) => document.getElementById(id);
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
-  const PILL = { running: 'RUNNING', blocked: 'BLOCKED', paused: 'PAUSED', queued: 'QUEUED', done: '✓ DONE' };
-  function card(item) {
-    const d = el('div', 'card');
+  const LABEL = { running: 'Running', blocked: 'Blocked', paused: 'Paused', queued: 'Queued', done: 'Done' };
+  function statusCard(item) {
     const st = (item.state || 'queued').toLowerCase();
-    d.appendChild(el('span', 'pill ' + st, item.pill || PILL[st] || st.toUpperCase()));
+    const d = el('article', 'card status st-' + st);
+    d.appendChild(el('span', 'pill', item.pill || LABEL[st] || st));
     d.appendChild(el('h3', null, item.title));
     if (item.body) d.appendChild(el('p', null, item.body));
     return d;
   }
+  function stat(value, label) { const d = el('div', 'stat'); d.appendChild(el('b', null, String(value))); d.appendChild(el('span', null, label)); return d; }
   function render(s) {
-    const t = $('updated-time'); t.dateTime = s.updated; t.textContent = s.updated_label || new Date(s.updated).toLocaleString();
-    const now = $('now'); now.replaceChildren(...(s.now || []).map(card));
-    if (!now.children.length) now.appendChild(Object.assign(el('div', 'card'), { innerHTML: '<p>Nothing running right now.</p>' }));
-    $('next').replaceChildren(...(s.next || []).map(n => { const li = el('li'); li.appendChild(el('b', null, n.title)); if (n.body) li.append(': ' + n.body); return li; }));
-    $('finished').replaceChildren(...(s.finished || []).map(f => card(Object.assign({ state: 'done' }, f))));
-    $('stages').replaceChildren(...(s.stages || []).map(g => {
-      const d = el('div', 'tstep' + (g.current ? ' now' : '')); d.appendChild(el('span', 'dot'));
-      d.appendChild(el('b', null, g.name)); d.appendChild(el('i', null, g.goal)); if (g.note) d.appendChild(el('em', null, g.note));
-      return d;
+    const t = $('updated-time'); t.dateTime = s.updated || ''; t.textContent = s.updated_label || (s.updated ? new Date(s.updated).toLocaleString() : 'unknown');
+    const now = s.now || [], stages = s.stages || [], finished = s.finished || [];
+    const count = (k) => now.filter(n => (n.state || '').toLowerCase() === k).length;
+    const cur = stages.findIndex(g => g.current);
+    $('summary').replaceChildren(
+      stat(cur >= 0 ? stages[cur].name.replace(/^Stage\s*/i, '') + ' of ' + stages.length : '?', 'Current stage'),
+      stat(count('running'), 'Running now'),
+      stat(count('blocked') + count('paused'), 'Blocked or paused'),
+      stat(finished.length, 'Recently finished'));
+    $('now').replaceChildren(...(now.length ? now.map(statusCard) : [Object.assign(el('div', 'card'), { textContent: 'Nothing running right now.' })]));
+    const road = $('stages'); road.style.setProperty('--n', stages.length || 4);
+    road.replaceChildren(...stages.map((g, i) => {
+      const li = el('li', 'era' + (g.current ? ' current' : (cur >= 0 && i < cur ? ' past' : '')));
+      if (g.current) li.setAttribute('aria-current', 'step');
+      li.appendChild(el('div', 'num', g.name));
+      li.appendChild(el('h3', null, g.goal));
+      li.appendChild(el('p', null, g.note || (cur >= 0 && i < cur ? 'Complete' : (cur >= 0 && i > cur ? 'Locked' : ''))));
+      return li;
     }));
+    requestAnimationFrame(() => { $('track-fill').style.width = (cur >= 0 ? ((cur + 0.5) / stages.length) * 100 : 0) + '%'; });
+    $('next').replaceChildren(...(s.next || []).map(n => { const li = el('li'); const w = el('div'); w.appendChild(el('b', null, n.title)); if (n.body) w.appendChild(el('span', null, n.body.charAt(0).toUpperCase() + n.body.slice(1))); li.appendChild(w); return li; }));
+    $('finished').replaceChildren(...finished.map(f => { const d = el('div', 'done-item'); d.appendChild(el('span', 'tick', '✓')); const w = el('div'); w.appendChild(el('h3', null, f.title)); if (f.body) w.appendChild(el('p', null, f.body)); d.appendChild(w); return d; }));
     if (Array.isArray(s.suggestions) && s.suggestions.length) {
       $('approved').replaceChildren(...s.suggestions.map(x => { const d = el('div', 'card'); d.appendChild(el('h3', null, x.text)); d.appendChild(el('p', null, [x.category, x.name, x.status || 'Approved'].filter(Boolean).join(' · '))); return d; }));
     }
   }
-  fetch('status.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : Promise.reject(r.status)).then(render).catch(() => {
-    $('now').replaceChildren(Object.assign(el('div', 'card'), { innerHTML: '<p>Status could not be loaded. The raw data is in <a href="status.json">status.json</a>.</p>' }));
+  const keepHash = () => { const t = location.hash && document.getElementById(location.hash.slice(1)); if (t) t.scrollIntoView({ behavior: 'instant' }); };
+  fetch('status.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : Promise.reject(r.status)).then(s => { render(s); keepHash(); }).catch(() => {
+    const c = el('div', 'card'); c.innerHTML = '<p>Status could not be loaded. The raw data is in <a href="status.json">status.json</a>.</p>'; $('now').replaceChildren(c);
   });
 
   // Suggestion box: static host, no backend. Copy the text so the visitor can hand it to Nick.
-  const form = $('suggest'), msg = $('msg');
+  const form = $('suggest-form'), msg = $('msg');
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = $('name').value.trim(), category = $('category').value, text = $('text').value.trim();
@@ -217,7 +377,7 @@
     try { await navigator.clipboard.writeText(out); copied = true; } catch (_) {}
     msg.className = 'msg ' + (copied ? 'ok' : 'warn');
     msg.textContent = copied ? 'Copied. Send it to Nick however you usually reach him; approved ideas show up below.' : 'Your browser blocked copying. Select the text below and copy it to send to Nick:';
-    const box = el('div', 'fallback', out); msg.appendChild(box);
+    msg.appendChild(el('div', 'fallback', out));
   });
 </script>
 </body>
