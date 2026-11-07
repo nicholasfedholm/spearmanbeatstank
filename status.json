@@ -1,7 +1,14 @@
 {
-  "updated": "2026-11-07T08:02:15-06:00",
-  "updated_label": "Saturday, November 7, 2026, 8:02 AM CT",
-  "now": [],
+  "updated": "2026-11-07T08:03:00-06:00",
+  "updated_label": "Saturday, November 7, 2026, 8:03 AM CT",
+  "now": [
+    {
+      "key": "p1",
+      "state": "running",
+      "title": "Single-player stability runs",
+      "body": "Running now (Nov 7). Twenty-turn test games on both the original and modded builds, watching for crashes or hangs."
+    }
+  ],
   "next": [
     {
       "title": "Performance baseline",
