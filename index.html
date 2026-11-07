@@ -3,8 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Civ3 Project — Progress Board</title>
+<title>Spearman beats Tank: Civ3 Mod Progress Board</title>
+<meta name="description" content="Progress board for a long-running Civilization III mod: multiplayer sync, a Nemesis grudge ledger, vassalage, smarter AI and a living climate. Status, queue, and a suggestion box.">
+<link rel="canonical" href="https://spearmanbeatstank.com/">
+<meta name="theme-color" content="#0b181a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Spearman beats Tank">
+<meta property="og:title" content="Spearman beats Tank: Civ3 Mod Progress Board">
+<meta property="og:description" content="Teaching a 2001 strategy game new tricks. What's running, what's next, and what's planned for the Civ3 mod.">
+<meta property="og:url" content="https://spearmanbeatstank.com/">
+<meta property="og:image" content="https://spearmanbeatstank.com/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A lone spearman bringing down a modern tank in front of a storybook city">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preload" as="image" type="image/webp" href="hero-860.webp" imagesrcset="hero-860.webp 860w, hero-1280.webp 1280w, hero-1720.webp 1720w" imagesizes="(max-width: 896px) calc(100vw - 60px), 836px" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -48,9 +62,18 @@
   .running { background:#5e1f1a; color:#ffb4a2; }
   .running::before { content:"● "; animation: pulse 1.6s infinite; }
   @keyframes pulse { 50% { opacity:.35; } }
+  @media (prefers-reduced-motion: reduce) { .running::before { animation: none; } }
+  .skip { position:absolute; left:-9999px; top:8px; background:var(--gold); color:#1a1206; padding:8px 14px; border-radius:6px; z-index:10; font-weight:600; }
+  .skip:focus { left:8px; }
+  a { color: var(--gold); }
+  input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .intro { margin-bottom: 8px; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  button.secondary { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
   .paused { background:#57430f; color:var(--gold); }
   .queued { background:#22333a; color:#9fb4ac; }
   .done { background:#173f3a; color:#9fe8d8; }
+  .blocked { background:#4a1f3a; color:#f2b8d8; }
   ol.queue { margin:0; padding-left: 22px; color: var(--dim); line-height: 1.6; }
   ol.queue b { color: var(--text); }
   .road { color: var(--dim); line-height: 1.7; }
@@ -82,7 +105,6 @@
   textarea { min-height: 110px; resize: vertical; }
   button { margin-top: 14px; background: var(--gold); color:#1a1206; border:0; border-radius: 8px; padding: 11px 22px; font-size: 1rem; font-weight: 600; cursor: pointer; font-family: 'Spectral', Georgia, serif; }
   button:hover { filter: brightness(1.08); }
-  .hp { position:absolute; left:-9999px; width:1px; height:1px; opacity:0; }
   .msg { margin-top: 12px; line-height: 1.5; }
   .ok { color: #8fe3b0; } .warn { color: var(--gold); }
   .fallback { white-space: pre-wrap; background:#0a1416; border:1px dashed var(--line); border-radius:8px; padding:10px; margin-top:8px; user-select: all; }
@@ -91,76 +113,59 @@
 </style>
 </head>
 <body>
-<div class="hero"><div class="inner">
+<a class="skip" href="#main">Skip to the progress board</a>
+<header class="hero"><div class="inner">
   <h1 class="wordmark">Spearman <span class="beats">beats</span> Tank</h1>
   <p class="tagline">Civ3 Project · Progress Board</p>
   <p class="sub">Nick is teaching a 2001 strategy game new tricks: a long-running mod project for Civilization III, built with AI help in a sandboxed test lab.</p>
-  <p class="updated">Last updated: Thursday, November 5, 2026, 11:15 PM CT — updated whenever something changes.</p>
-  <figure class="frame"><img src="hero.jpg" alt="A lone spearman bringing down a modern tank in front of a storybook city, painted in the watercolor style of Nick's desktop wallpaper"><figcaption>The spearman, as always, wins.</figcaption></figure>
-</div></div>
-<div class="wrap">
+  <p class="updated" id="updated">Last updated: <time id="updated-time"></time>. Updated whenever something changes.</p>
+  <figure class="frame"><picture>
+    <source type="image/webp" srcset="hero-860.webp 860w, hero-1280.webp 1280w, hero-1720.webp 1720w" sizes="(max-width: 896px) calc(100vw - 60px), 836px">
+    <img src="hero.jpg" width="1920" height="1085" fetchpriority="high" decoding="async" alt="A lone spearman bringing down a modern tank in front of a storybook city, painted in the watercolor style of Nick's desktop wallpaper">
+  </picture><figcaption>The spearman, as always, wins.</figcaption></figure>
+</div></header>
+<main class="wrap" id="main">
+
+  <noscript><div class="card"><p>The live status sections need JavaScript. The raw status is in <a href="status.json">status.json</a>.</p></div></noscript>
 
   <h2>Happening now</h2>
-  <div class="card">
-    <span class="pill running">RUNNING</span>
-    <h3>Multiplayer sync probe</h3>
-    <p>Can two copies of the modded game play the same network game and stay perfectly in sync? The feasibility test (two game instances, one hosting, one joining over a local loopback connection) is in progress right now.</p>
-  </div>
-  <div class="card">
-    <span class="pill paused">PAUSED · CHECKPOINT SAVED</span>
-    <h3>Single-player stability runs</h3>
-    <p>Long test games that watch for crashes and weird behavior. Paused at a saved checkpoint while multiplayer gets tested first; it resumes exactly where it left off.</p>
-  </div>
+  <div id="now" aria-live="polite"><div class="card"><p>Loading status…</p></div></div>
 
   <h2>Up next</h2>
-  <div class="card">
-    <ol class="queue">
-      <li><b>Performance baseline</b> — how fast the modded game actually runs, measured properly.</li>
-      <li><b>Stage 1 report</b> — the verdict that pulls everything together.</li>
-      <li><b>Stage 2: first real features</b> — locked until Stage 1 passes its report.</li>
-    </ol>
-  </div>
+  <div class="card"><ol class="queue" id="next"></ol></div>
 
   <h2>Recently finished</h2>
-  <div class="card"><span class="pill done">✓ DONE</span><h3>Test lab stood up in its own virtual machine</h3><p>PASS (Nov 5).</p></div>
-  <div class="card"><span class="pill done">✓ DONE</span><h3>The bug that kept ending test games early is found and fixed</h3><p>Turned out the game was fine; the tooling was misreading the year counter on screen.</p></div>
-  <div class="card"><span class="pill done">✓ DONE</span><h3>Self-continuing work sessions</h3><p>When a session fills up, it writes a checkpoint and a fresh one picks up automatically. No more lost progress.</p></div>
+  <div id="finished"></div>
 
   <h2>The road ahead</h2>
-  <div class="card"><div class="timeline">
-    <div class="tstep now"><span class="dot"></span><b>Stage 1</b><i>Stabilize</i><em>In progress</em></div>
-    <div class="tstep"><span class="dot"></span><b>Stage 2</b><i>First features</i></div>
-    <div class="tstep"><span class="dot"></span><b>Stage 3</b><i>More features</i></div>
-    <div class="tstep"><span class="dot"></span><b>Stage 4</b><i>Smarter AI + climate</i></div>
-  </div></div>
+  <div class="card"><div class="timeline" id="stages"></div></div>
 
   <h2>The implementation list</h2>
   <div class="card">
-    <p style="margin-bottom:8px">What actually gets built once the foundation (Stage 1) passes:</p>
-        <details class="impl"><summary><b>The Nemesis ledger</b> — the game writes down every betrayal, sneak attack, and razed city, and AI rivals hold real grudges.</summary><p>How it works: every pair of civilizations keeps a running grudge and favor score: all 465 pairs in a 31-civ game, plus the biggest individual reasons with the year each one happened. Grudges come from surprise attacks, declaring war, razing or capturing cities, nuclear strikes, broken deals and caught spies. Favors come from gifts, returned cities, honored alliances and fighting a common enemy. Leaders weight events differently and forgive at different rates, so a warlike civ nurses a vendetta while a peaceful one lets things fade. Cross a threshold and the score starts bending real decisions: attitude, trade prices, who gets targeted in a war, who signs alliances and embargoes. The reasons show inside the diplomacy screen, never as popups, and caps plus diminishing returns stop gift-spam from buying permanent friendship. Severity matters: a capital or a wonder city counts for far more than an ordinary town.</p></details>
-    <details class="impl"><summary><b>Vassalage</b> — beaten rivals can bend the knee and serve a stronger power instead of fighting to the last city. Built on top of the ledger.</summary><p>How it works: there are three ways in. A peace term ending a war, a demand backed by overwhelming power (roughly 3-to-1 on a composite of cities, population, military and economic strength), or a small civ voluntarily asking a big one for protection. Vassals pay a gold tithe in 10% or 20% steps, contribute science from their Libraries, Universities and Research Labs, automatically join their overlord's wars, and give up independent war and alliance diplomacy. Tributaries pay more gold instead, stay fully free, and can never be absorbed. A long-held vassal can eventually be integrated: gradually, at a gold cost per turn, cheapest cities first and the capital last.</p></details>
-    <details class="impl"><summary><b>Loyalty</b> — cities and vassals keep a loyalty score, with the ledger as its memory, so empires can crack from the inside.</summary><p>How it works: every subject carries a loyalty score from -100 to +100 that drifts a little each turn. What moves it, weighted most first: how the subject's culture, science and military power compare to the overlord's; how harsh the contract is; what the Nemesis ledger says about the pair, including wars the subject was dragged into; and whether their governments match. At -50 the subject stops paying its tithe and science, and starts quietly seeking a secret pledge to a rival. At -100, if the power gap has closed to roughly 2-to-1, it can declare a war of independence. Secret fealty: when the rival it pledged to goes to war with its overlord, the subject defects.</p></details>
-    <details class="impl"><summary><b>Smarter AI opponents</b> — better war-making, diplomacy, and long-term planning.</summary><p>How it works: vanilla Civ3 has no war planner at all. Every unit picks its own target, which is why AI armies drip-feed single units into your guns. This stage adds a per-civ war coordinator: assemble stacks before attacking, bombard before assaulting, escort the artillery and the transports, retreat and heal damaged units, focus weak border targets, and never take suicidal odds. The same stage fixes workers, scoring every job by its real yield after government penalties (never irrigate a tile Despotism makes pointless), with a full re-audit after every government change. And it fixes city build choices: what the city actually needs first, current-era units only, garrisons sized to the real threat. No more five archers standing guard in the age of infantry.</p></details>
-    <details class="impl"><summary><b>A living climate</b> — seas that can warm and cool back down, coasts that flood, city tiles flood last, and a flooded city is lost.</summary><p>How it works: vanilla warming is a one-way ratchet. Pollution degrades tiles and it is permanent. The new system makes it two-way: the warming level can fall again when world pollution output stays low, degraded tiles slowly step back (desert to plains to grassland), and workers gain a restore action to speed the recovery along. Push warming high instead, and coastal land starts converting into actual sea: land bridges sever, peninsulas become islands, trade routes and borders redraw themselves. City tiles flood last of all, and a city that goes under is destroyed, which is exactly what makes reversing warming worth doing in time.</p></details>
-    <details class="impl"><summary><b>Multiplayer that stays in sync</b> — two copies playing the same game turn by turn, hash-checked. Being proven right now.</summary><p>How it works: two copies of the modded game play the same scripted opening from the same save, and after every turn each machine hashes its full game state. Matching hashes mean both machines simulated the identical game. The hashes are split by subsystem, so when something does diverge, the report names which part of the game broke sync instead of just saying 'desync'. Every feature in the mod is built to the same rule: decisions come only from synced game state, never from local randomness, wall-clock time, or per-machine settings.</p></details>
-    <details class="impl"><summary><b>Speed work</b> — measure first, then make a 2001 game run like it isn't from 2001.</summary><p>How it works: profile first, fix what the evidence indicts, measure again. The famous suspect, the trade-network calculation, turned out to be only about 0.5 to 3.6 percent of turn time on the biggest save tested, and the C3X Trade Net X path already replaced it anyway. Over 96 percent of late-game turn time is still unattributed, so the next step is profiling a generated 160x160 huge-map game to find where the time actually goes. Every optimization has to be behavior-preserving: the same game, just less waiting.</p></details>
+    <p class="intro">What actually gets built once the foundation (Stage 1) passes:</p>
+        <details class="impl"><summary><b>The Nemesis ledger</b>: the game writes down every betrayal, sneak attack, and razed city, and AI rivals hold real grudges.</summary><p>How it works: every pair of civilizations keeps a running grudge and favor score: all 465 pairs in a 31-civ game, plus the biggest individual reasons with the year each one happened. Grudges come from surprise attacks, declaring war, razing or capturing cities, nuclear strikes, broken deals and caught spies. Favors come from gifts, returned cities, honored alliances and fighting a common enemy. Leaders weight events differently and forgive at different rates, so a warlike civ nurses a vendetta while a peaceful one lets things fade. Cross a threshold and the score starts bending real decisions: attitude, trade prices, who gets targeted in a war, who signs alliances and embargoes. The reasons show inside the diplomacy screen, never as popups, and caps plus diminishing returns stop gift-spam from buying permanent friendship. Severity matters: a capital or a wonder city counts for far more than an ordinary town.</p></details>
+    <details class="impl"><summary><b>Vassalage</b>: beaten rivals can bend the knee and serve a stronger power instead of fighting to the last city. Built on top of the ledger.</summary><p>How it works: there are three ways in. A peace term ending a war, a demand backed by overwhelming power (roughly 3-to-1 on a composite of cities, population, military and economic strength), or a small civ voluntarily asking a big one for protection. Vassals pay a gold tithe in 10% or 20% steps, contribute science from their Libraries, Universities and Research Labs, automatically join their overlord's wars, and give up independent war and alliance diplomacy. Tributaries pay more gold instead, stay fully free, and can never be absorbed. A long-held vassal can eventually be integrated: gradually, at a gold cost per turn, cheapest cities first and the capital last.</p></details>
+    <details class="impl"><summary><b>Loyalty</b>: cities and vassals keep a loyalty score, with the ledger as its memory, so empires can crack from the inside.</summary><p>How it works: every subject carries a loyalty score from -100 to +100 that drifts a little each turn. What moves it, weighted most first: how the subject's culture, science and military power compare to the overlord's; how harsh the contract is; what the Nemesis ledger says about the pair, including wars the subject was dragged into; and whether their governments match. At -50 the subject stops paying its tithe and science, and starts quietly seeking a secret pledge to a rival. At -100, if the power gap has closed to roughly 2-to-1, it can declare a war of independence. Secret fealty: when the rival it pledged to goes to war with its overlord, the subject defects.</p></details>
+    <details class="impl"><summary><b>Smarter AI opponents</b>: better war-making, diplomacy, and long-term planning.</summary><p>How it works: vanilla Civ3 has no war planner at all. Every unit picks its own target, which is why AI armies drip-feed single units into your guns. This stage adds a per-civ war coordinator: assemble stacks before attacking, bombard before assaulting, escort the artillery and the transports, retreat and heal damaged units, focus weak border targets, and never take suicidal odds. The same stage fixes workers, scoring every job by its real yield after government penalties (never irrigate a tile Despotism makes pointless), with a full re-audit after every government change. And it fixes city build choices: what the city actually needs first, current-era units only, garrisons sized to the real threat. No more five archers standing guard in the age of infantry.</p></details>
+    <details class="impl"><summary><b>A living climate</b>: seas that can warm and cool back down, coasts that flood, city tiles flood last, and a flooded city is lost.</summary><p>How it works: vanilla warming is a one-way ratchet. Pollution degrades tiles and it is permanent. The new system makes it two-way: the warming level can fall again when world pollution output stays low, degraded tiles slowly step back (desert to plains to grassland), and workers gain a restore action to speed the recovery along. Push warming high instead, and coastal land starts converting into actual sea: land bridges sever, peninsulas become islands, trade routes and borders redraw themselves. City tiles flood last of all, and a city that goes under is destroyed, which is exactly what makes reversing warming worth doing in time.</p></details>
+    <details class="impl"><summary><b>Multiplayer that stays in sync</b>: two copies playing the same game turn by turn, hash-checked. Proof is blocked at the two-instance startup step.</summary><p>How it works: two copies of the modded game play the same scripted opening from the same save, and after every turn each machine hashes its full game state. Matching hashes mean both machines simulated the identical game. The hashes are split by subsystem, so when something does diverge, the report names which part of the game broke sync instead of just saying 'desync'. Every feature in the mod is built to the same rule: decisions come only from synced game state, never from local randomness, wall-clock time, or per-machine settings.</p></details>
+    <details class="impl"><summary><b>Speed work</b>: measure first, then make a 2001 game run like it isn't from 2001.</summary><p>How it works: profile first, fix what the evidence indicts, measure again. The famous suspect, the trade-network calculation, turned out to be only about 0.5 to 3.6 percent of turn time on the biggest save tested, and the C3X Trade Net X path already replaced it anyway. Over 96 percent of late-game turn time is still unattributed, so the next step is profiling a generated 160x160 huge-map game to find where the time actually goes. Every optimization has to be behavior-preserving: the same game, just less waiting.</p></details>
   </div>
 
   <h2>Suggestion box</h2>
   <div class="card">
-    <p>Ideas welcome. Nothing appears publicly on its own: every suggestion goes to Nick first, and approved ones get appended below with a status.</p>
+    <p>Ideas welcome. Write it here, copy it, and hand it to Nick. Nothing gets posted automatically: Nick reviews every suggestion, and approved ones are added below with a status.</p>
     <form id="suggest">
       <label for="name">Name (optional)</label>
-      <input id="name" maxlength="60" autocomplete="off">
+      <input id="name" maxlength="60" autocomplete="name">
       <label for="category">Category</label>
       <select id="category">
         <option>Feature idea</option><option>Test idea</option><option>Quality of life</option><option>Other</option>
       </select>
       <label for="text">Suggestion</label>
-      <textarea id="text" maxlength="2000" required></textarea>
-      <input class="hp" id="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button type="submit">Send suggestion</button>
-      <div class="msg" id="msg"></div>
+      <textarea id="text" maxlength="2000" minlength="3" required></textarea>
+      <div class="row"><button type="submit">Copy suggestion</button></div>
+      <div class="msg" id="msg" role="status" aria-live="polite"></div>
     </form>
   </div>
 
@@ -168,44 +173,52 @@
   <div id="approved"><div class="card"><p>No approved suggestions yet. Be the first.</p></div></div>
 
   <footer>A very serious project about a 25-year-old game. Maintained by Muse for Nick.<div class="signoff">Spearman 1 · Tank 0.</div></footer>
-</div>
+</main>
 <script>
-  const form = document.getElementById('suggest');
-  const msg = document.getElementById('msg');
+  // All live status comes from status.json (single source of truth). Edit that file, not this page.
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const PILL = { running: 'RUNNING', blocked: 'BLOCKED', paused: 'PAUSED', queued: 'QUEUED', done: '✓ DONE' };
+  function card(item) {
+    const d = el('div', 'card');
+    const st = (item.state || 'queued').toLowerCase();
+    d.appendChild(el('span', 'pill ' + st, item.pill || PILL[st] || st.toUpperCase()));
+    d.appendChild(el('h3', null, item.title));
+    if (item.body) d.appendChild(el('p', null, item.body));
+    return d;
+  }
+  function render(s) {
+    const t = $('updated-time'); t.dateTime = s.updated; t.textContent = s.updated_label || new Date(s.updated).toLocaleString();
+    const now = $('now'); now.replaceChildren(...(s.now || []).map(card));
+    if (!now.children.length) now.appendChild(Object.assign(el('div', 'card'), { innerHTML: '<p>Nothing running right now.</p>' }));
+    $('next').replaceChildren(...(s.next || []).map(n => { const li = el('li'); li.appendChild(el('b', null, n.title)); if (n.body) li.append(': ' + n.body); return li; }));
+    $('finished').replaceChildren(...(s.finished || []).map(f => card(Object.assign({ state: 'done' }, f))));
+    $('stages').replaceChildren(...(s.stages || []).map(g => {
+      const d = el('div', 'tstep' + (g.current ? ' now' : '')); d.appendChild(el('span', 'dot'));
+      d.appendChild(el('b', null, g.name)); d.appendChild(el('i', null, g.goal)); if (g.note) d.appendChild(el('em', null, g.note));
+      return d;
+    }));
+    if (Array.isArray(s.suggestions) && s.suggestions.length) {
+      $('approved').replaceChildren(...s.suggestions.map(x => { const d = el('div', 'card'); d.appendChild(el('h3', null, x.text)); d.appendChild(el('p', null, [x.category, x.name, x.status || 'Approved'].filter(Boolean).join(' · '))); return d; }));
+    }
+  }
+  fetch('status.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : Promise.reject(r.status)).then(render).catch(() => {
+    $('now').replaceChildren(Object.assign(el('div', 'card'), { innerHTML: '<p>Status could not be loaded. The raw data is in <a href="status.json">status.json</a>.</p>' }));
+  });
+
+  // Suggestion box: static host, no backend. Copy the text so the visitor can hand it to Nick.
+  const form = $('suggest'), msg = $('msg');
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const name = document.getElementById('name').value.trim();
-    const category = document.getElementById('category').value;
-    const text = document.getElementById('text').value.trim();
-    const website = document.getElementById('website').value;
+    const name = $('name').value.trim(), category = $('category').value, text = $('text').value.trim();
     if (text.length < 3) { msg.textContent = 'Give me a little more than that.'; msg.className = 'msg warn'; return; }
-    try {
-      const r = await fetch('/api/suggest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, category, text, website }) });
-      if (!r.ok) throw new Error('bad status');
-      msg.textContent = 'Got it! Nick reviews every suggestion; approved ones appear below.';
-      msg.className = 'msg ok';
-      form.reset();
-    } catch (err) {
-      msg.className = 'msg warn';
-      msg.innerHTML = 'The suggestion box is not switched on at this address yet. For now, your text is in the box below so you can hand it to Nick directly:';
-      const box = document.createElement('div');
-      box.className = 'fallback';
-      box.textContent = '[' + category + '] ' + text + (name ? ' — ' + name : '');
-      msg.appendChild(box);
-    }
+    const out = '[' + category + '] ' + text + (name ? ' (from ' + name + ')' : '');
+    let copied = false;
+    try { await navigator.clipboard.writeText(out); copied = true; } catch (_) {}
+    msg.className = 'msg ' + (copied ? 'ok' : 'warn');
+    msg.textContent = copied ? 'Copied. Send it to Nick however you usually reach him; approved ideas show up below.' : 'Your browser blocked copying. Select the text below and copy it to send to Nick:';
+    const box = el('div', 'fallback', out); msg.appendChild(box);
   });
-  fetch('/api/suggest').then(r => r.ok ? r.json() : []).then(list => {
-    if (!Array.isArray(list) || !list.length) return;
-    const host = document.getElementById('approved');
-    host.innerHTML = '';
-    for (const s of list) {
-      const d = document.createElement('div');
-      d.className = 'card';
-      const h = document.createElement('h3'); h.textContent = s.text;
-      const p = document.createElement('p'); p.textContent = s.category + (s.name ? ' · ' + s.name : '') + ' · ' + (s.status || 'Approved');
-      d.appendChild(h); d.appendChild(p); host.appendChild(d);
-    }
-  }).catch(() => {});
 </script>
 </body>
 </html>
