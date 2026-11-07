@@ -15,20 +15,52 @@
     }
   ],
   "next": [
-    { "title": "Performance baseline", "body": "how fast the modded game actually runs, measured properly." },
-    { "title": "Stage 1 report", "body": "the verdict that pulls everything together." },
-    { "title": "Stage 2: first real features", "body": "locked until Stage 1 passes its report." }
+    {
+      "title": "Performance baseline",
+      "body": "how fast the modded game actually runs, measured properly."
+    },
+    {
+      "title": "Stage 1 report",
+      "body": "the verdict that pulls everything together."
+    },
+    {
+      "title": "Stage 2: first real features",
+      "body": "locked until Stage 1 passes its report."
+    }
   ],
   "finished": [
-    { "title": "Test lab stood up in its own virtual machine", "body": "PASS (Nov 5)." },
-    { "title": "The bug that kept ending test games early is found and fixed", "body": "Turned out the game was fine; the tooling was misreading the year counter on screen." },
-    { "title": "Self-continuing work sessions", "body": "When a session fills up, it writes a checkpoint and a fresh one picks up automatically. No more lost progress." }
+    {
+      "title": "Test lab stood up in its own virtual machine",
+      "body": "PASS (Nov 5)."
+    },
+    {
+      "title": "The bug that kept ending test games early is found and fixed",
+      "body": "Turned out the game was fine; the tooling was misreading the year counter on screen."
+    },
+    {
+      "title": "Self-continuing work sessions",
+      "body": "When a session fills up, it writes a checkpoint and a fresh one picks up automatically. No more lost progress."
+    }
   ],
   "stages": [
-    { "name": "Stage 1", "goal": "Stabilize", "note": "In progress", "current": true },
-    { "name": "Stage 2", "goal": "First features" },
-    { "name": "Stage 3", "goal": "More features" },
-    { "name": "Stage 4", "goal": "Smarter AI + climate" }
+    {
+      "name": "Stage 1",
+      "goal": "Stabilize and speed up",
+      "note": "In progress",
+      "current": true
+    },
+    {
+      "name": "Stage 2",
+      "goal": "Foundations + grudge ledger"
+    },
+    {
+      "name": "Stage 3",
+      "goal": "Vassals + grudge consequences"
+    },
+    {
+      "name": "Stage 4",
+      "goal": "Smarter AI"
+    }
   ],
   "suggestions": []
 }

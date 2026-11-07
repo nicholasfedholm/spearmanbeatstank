@@ -249,7 +249,7 @@
         <article class="card feature">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6z"/><path d="M6 3a2 2 0 0 0-2 2v2h2"/><path d="M9 8h7M9 12h7M9 16h4"/></svg></div>
           <h3>The Nemesis ledger</h3>
-          <p>The game writes down every betrayal, sneak attack, and razed city, and AI rivals hold real grudges.</p>
+          <p>Rivals keep score of every betrayal and favor, and later that score changes prices, trust and who they go to war with.</p>
           <details><summary>How it works</summary><p>every pair of civilizations keeps a running grudge and favor score: all 465 pairs in a 31-civ game, plus the biggest individual reasons with the year each one happened. Grudges come from surprise attacks, declaring war, razing or capturing cities, nuclear strikes, broken deals and caught spies. Favors come from gifts, returned cities, honored alliances and fighting a common enemy. Leaders weight events differently and forgive at different rates, so a warlike civ nurses a vendetta while a peaceful one lets things fade. Cross a threshold and the score starts bending real decisions: attitude, trade prices, who gets targeted in a war, who signs alliances and embargoes. The reasons show inside the diplomacy screen, never as popups, and caps plus diminishing returns stop gift-spam from buying permanent friendship. Severity matters: a capital or a wonder city counts for far more than an ordinary town.</p></details>
         </article>
         <article class="card feature">
@@ -273,7 +273,7 @@
         <article class="card feature">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 15c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/><path d="M2 20c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/><circle cx="12" cy="6" r="3"/></svg></div>
           <h3>A living climate</h3>
-          <p>Seas that can warm and cool back down, coasts that flood, city tiles flood last, and a flooded city is lost.</p>
+          <p>Warming that can reverse, and seas that rise, as a future goal that is still being scoped.</p>
           <details><summary>How it works</summary><p>vanilla warming is a one-way ratchet. Pollution degrades tiles and it is permanent. The new system makes it two-way: the warming level can fall again when world pollution output stays low, degraded tiles slowly step back (desert to plains to grassland), and workers gain a restore action to speed the recovery along. Push warming high instead, and coastal land starts converting into actual sea: land bridges sever, peninsulas become islands, trade routes and borders redraw themselves. City tiles flood last of all, and a city that goes under is destroyed, which is exactly what makes reversing warming worth doing in time.</p></details>
         </article>
         <article class="card feature">
@@ -285,8 +285,14 @@
         <article class="card feature">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12M6 21h12"/><path d="M7 3c0 5 5 6 5 9s-5 4-5 9"/><path d="M17 3c0 5-5 6-5 9s5 4 5 9"/></svg></div>
           <h3>Speed work</h3>
-          <p>Measure first, then make a 2001 game run like it isn't from 2001.</p>
-          <details><summary>How it works</summary><p>profile first, fix what the evidence indicts, measure again. The famous suspect, the trade-network calculation, turned out to be only about 0.5 to 3.6 percent of turn time on the biggest save tested, and the C3X Trade Net X path already replaced it anyway. Over 96 percent of late-game turn time is still unattributed, so the next step is profiling a generated 160x160 huge-map game to find where the time actually goes. Every optimization has to be behavior-preserving: the same game, just less waiting.</p></details>
+          <p>Measure first, using huge 512-city test games, then make a 2001 game run like it isn't from 2001.</p>
+          <details><summary>How it works</summary><p>profile first, fix what the evidence indicts, measure again. The famous suspect, the trade-network calculation, turned out to be only about 0.5 to 3.6 percent of turn time on the biggest save tested, and the C3X Trade Net X path already replaced it anyway. Over 96 percent of late-game turn time is still unattributed, so the next step is profiling huge 512-city test games to find where the time actually goes. Every optimization has to be behavior-preserving: the same game, just less waiting.</p></details>
+        </article>
+        <article class="card feature">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></div>
+          <h3>Packs</h3>
+          <p>Drop in texture packs from the main menu, with a guaranteed way back to the original art.</p>
+          <details><summary>How it works</summary><p>Packs swap the game's art from the main menu instead of by hand-copying files, and the original art can always be restored in one step.</p></details>
         </article>
       </div>
     </div>
