@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-06T18:04:00-06:00",
-  "updated_label": "Friday, November 6, 2026, 6:04 PM CT",
+  "updated": "2026-11-07T07:44:02-06:00",
+  "updated_label": "Saturday, November 7, 2026, 7:44 AM CT",
   "now": [
     {
       "state": "blocked",
@@ -29,6 +29,10 @@
     }
   ],
   "finished": [
+    {
+      "title": "Multiplayer sync: what 'in sync' actually means",
+      "body": "PASS (Nov 7). The game's own sync check only watches its random-number stream, and the mod's extra data never crosses the network directly, so two copies can drift apart silently. The spec now names exactly what to compare, turn by turn."
+    },
     {
       "title": "Test lab stood up in its own virtual machine",
       "body": "PASS (Nov 5)."
