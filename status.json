@@ -1,7 +1,14 @@
 {
-  "updated": "2026-11-07T14:21:20-06:00",
-  "updated_label": "Saturday, November 7, 2026, 2:21 PM CT",
-  "now": [],
+  "updated": "2026-11-08T06:11:16-06:00",
+  "updated_label": "Sunday, November 8, 2026, 6:11 AM CT",
+  "now": [
+    {
+      "key": "p1",
+      "state": "running",
+      "title": "Single-player stability runs",
+      "body": "Back underway (Nov 8). The test driver is learning to handle the United Nations vote screens that stopped the last run, and to log and work past new pop-up screens on its own instead of stopping the whole test."
+    }
+  ],
   "next": [
     {
       "title": "Performance baseline",
