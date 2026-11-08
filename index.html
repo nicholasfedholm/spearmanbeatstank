@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Spearman beats Tank">
 <meta property="og:title" content="Spearman beats Tank: Civ3 Mod Progress Board">
-<meta property="og:description" content="Teaching a 2001 strategy game new tricks. What's running, what's next, and what's planned for the Civ3 mod.">
+<meta property="og:description" content="Giving a 2001 strategy game the systems it never had: diplomacy with a memory, vassals and loyalty, an AI that plans its wars, and a climate that can flood the map.">
 <meta property="og:url" content="https://spearmanbeatstank.com/">
 <meta property="og:image" content="https://spearmanbeatstank.com/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
 <meta property="og:image:alt" content="A lone spearman bringing down a modern tank in front of a storybook city">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="preload" as="image" type="image/webp" href="hero-860.webp" imagesrcset="hero-860.webp 860w, hero-1280.webp 1280w, hero-1720.webp 1720w" imagesizes="(max-width: 900px) calc(100vw - 32px), 640px" fetchpriority="high">
+<link rel="preload" as="image" type="image/png" href="pixel-hero-1722.png" imagesrcset="pixel-hero-861.png 861w, pixel-hero-1722.png 1722w" imagesizes="(max-width: 900px) calc(100vw - 32px), 640px" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -86,7 +86,7 @@
   .btn-ghost:hover { border-color: var(--gold); color: var(--ink); }
   .painting { margin: 0; position: relative; }
   .painting picture { display: block; background: var(--paper); padding: 10px; border-radius: 6px; border: 1px solid var(--line); box-shadow: var(--shadow); transform: rotate(.6deg); }
-  .painting img { display: block; width: 100%; height: auto; border-radius: 3px; }
+  .painting img { display: block; width: 100%; height: auto; border-radius: 3px; image-rendering: pixelated; }
   .painting figcaption { margin-top: 12px; text-align: center; font-style: italic; color: var(--muted); font-size: .95rem; }
 
   /* Sections */
@@ -210,8 +210,8 @@
       </div>
       <figure class="painting">
         <picture>
-          <source type="image/webp" srcset="hero-860.webp 860w, hero-1280.webp 1280w, hero-1720.webp 1720w" sizes="(max-width: 900px) calc(100vw - 32px), 640px">
-          <img src="hero.jpg" width="1920" height="1085" fetchpriority="high" decoding="async" alt="A lone spearman bringing down a modern tank in front of a storybook city, painted in the watercolor style of DisastrousBlueberry's desktop wallpaper">
+          <source type="image/png" srcset="pixel-hero-861.png 861w, pixel-hero-1722.png 1722w" sizes="(max-width: 900px) calc(100vw - 32px), 640px">
+          <img src="pixel-hero-1722.png" width="1722" height="972" fetchpriority="high" decoding="async" alt="A lone spearman bringing down a modern tank in front of a storybook city, rendered in chunky pixel art converted from the watercolor painting on DisastrousBlueberry's desktop">
         </picture>
       </figure>
     </div>
