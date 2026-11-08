@@ -202,7 +202,7 @@
       <div>
         <p class="eyebrow">Civilization III mod · Progress board</p>
         <h1 class="wordmark">Spearman <span class="beats">beats</span> Tank</h1>
-        <p class="lede">Nick is teaching a 2001 strategy game new tricks: a long-running mod project for Civilization III, built with AI help in a sandboxed test lab.</p>
+        <p class="lede">DisastrousBlueberry is teaching a 2001 strategy game new tricks: a long-running mod project for Civilization III, built with AI help in a sandboxed test lab.</p>
         <div class="actions">
           <a class="btn btn-primary" href="#status">See what's happening</a>
           <a class="btn btn-ghost" href="#plan">What's being built</a>
@@ -211,9 +211,8 @@
       <figure class="painting">
         <picture>
           <source type="image/webp" srcset="hero-860.webp 860w, hero-1280.webp 1280w, hero-1720.webp 1720w" sizes="(max-width: 900px) calc(100vw - 32px), 640px">
-          <img src="hero.jpg" width="1920" height="1085" fetchpriority="high" decoding="async" alt="A lone spearman bringing down a modern tank in front of a storybook city, painted in the watercolor style of Nick's desktop wallpaper">
+          <img src="hero.jpg" width="1920" height="1085" fetchpriority="high" decoding="async" alt="A lone spearman bringing down a modern tank in front of a storybook city, painted in the watercolor style of DisastrousBlueberry's desktop wallpaper">
         </picture>
-        <figcaption>The spearman, as always, wins.</figcaption>
       </figure>
     </div>
   </div>
@@ -308,7 +307,7 @@
     <div class="wrap suggest">
       <div class="copy">
         <h2 id="suggest-h">Send an envoy<small>Ideas welcome.</small></h2>
-        <p>Write your idea here, copy it, and hand it to Nick however you usually reach him. Nothing gets posted automatically: Nick reviews every suggestion, and approved ones show up below with a status.</p>
+        <p>Write your idea here, copy it, and hand it to DisastrousBlueberry however you usually reach him. Nothing gets posted automatically: DisastrousBlueberry reviews every suggestion, and approved ones show up below with a status.</p>
       </div>
       <div>
         <form class="card" id="suggest-form">
@@ -329,7 +328,7 @@
 </main>
 
 <footer>
-  <div class="wrap">A very serious project about a 25-year-old game. Maintained by Muse for Nick.<div class="score">Spearman 1 · Tank 0</div></div>
+  <div class="wrap">A very serious project about a 25-year-old game. Maintained by Muse for DisastrousBlueberry.<div class="score">Spearman 1 · Tank 0</div></div>
 </footer>
 
 <script>
@@ -378,7 +377,7 @@
     const c = el('div', 'card'); c.innerHTML = '<p>Status could not be loaded. The raw data is in <a href="status.json">status.json</a>.</p>'; $('now').replaceChildren(c);
   });
 
-  // Suggestion box: static host, no backend. Copy the text so the visitor can hand it to Nick.
+  // Suggestion box: static host, no backend. Copy the text so the visitor can hand it to DisastrousBlueberry.
   const form = $('suggest-form'), msg = $('msg');
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -388,7 +387,7 @@
     let copied = false;
     try { await navigator.clipboard.writeText(out); copied = true; } catch (_) {}
     msg.className = 'msg ' + (copied ? 'ok' : 'warn');
-    msg.textContent = copied ? 'Copied. Send it to Nick however you usually reach him; approved ideas show up below.' : 'Your browser blocked copying. Select the text below and copy it to send to Nick:';
+    msg.textContent = copied ? 'Copied. Send it to DisastrousBlueberry however you usually reach him; approved ideas show up below.' : 'Your browser blocked copying. Select the text below and copy it to send to DisastrousBlueberry:';
     msg.appendChild(el('div', 'fallback', out));
   });
 </script>
