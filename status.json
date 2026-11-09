@@ -1,7 +1,14 @@
 {
-  "updated": "2026-11-08T19:32:17-06:00",
-  "updated_label": "Sunday, November 8, 2026, 7:32 PM CT",
-  "now": [],
+  "updated": "2026-11-08T19:42:05-06:00",
+  "updated_label": "Sunday, November 8, 2026, 7:42 PM CT",
+  "now": [
+    {
+      "key": "i2",
+      "state": "running",
+      "title": "Where does a turn's time actually go?",
+      "body": "Now measuring full turns on a 250x250 late-game save at the 512-city cap, breaking down where each turn's seconds go: AI movement, trade network, cities, pathfinding, and whatever is left unexplained."
+    }
+  ],
   "next": [
     {
       "title": "Performance baseline",
