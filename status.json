@@ -1,14 +1,7 @@
 {
-  "updated": "2026-11-08T09:25:29-06:00",
-  "updated_label": "Sunday, November 8, 2026, 9:25 AM CT",
-  "now": [
-    {
-      "key": "p1",
-      "state": "blocked",
-      "title": "Single-player stability runs",
-      "body": "BLOCKED (Nov 8). The original build played 20 turns cleanly, then a trade-advisor popup the test driver could not read stopped the run. No crash or hang in the game itself; the modded build has not run yet."
-    }
-  ],
+  "updated": "2026-11-08T19:32:17-06:00",
+  "updated_label": "Sunday, November 8, 2026, 7:32 PM CT",
+  "now": [],
   "next": [
     {
       "title": "Performance baseline",
@@ -24,6 +17,10 @@
     }
   ],
   "finished": [
+    {
+      "title": "Single-player stability runs",
+      "body": "PASS (Nov 8). Both the original and the modded game ran full 20-turn test games with mid-game saves reloading cleanly, no crashes, and no hangs. The advisor popup that blocked an earlier run is now handled on sight, and it fired five times per game without slowing anything down."
+    },
     {
       "title": "Single-player stability runs",
       "body": "BLOCKED (Nov 7). The standard build ran its full twenty turns with clean saves and reloads, but the test setup hit a voting screen it doesn't know how to dismiss yet, and stopped by its own rule. The modded build hasn't run yet. The next step is a decision on one more fix for the test setup."
